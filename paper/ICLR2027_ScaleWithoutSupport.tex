@@ -81,30 +81,38 @@ Document Representations}
 
 % =============================================================================
 \begin{abstract}
-The Hurst and H\"older exponents that summarise language's fractal information
-structure separate human text from language-model output. Treating the exponents as
-an \emph{estimand} and a document as a finite \emph{support}, we show this
-separation is a property of the generating process in ensemble which does not
-descend to the individual document. On $223{,}834$ GAGLE documents the corpus-level
-gap survives full re-derivation of the human population and a determinism fix ---
-$20$ of $20$ (domain, generator, exponent) cells separate with non-overlapping
-$95\%$ intervals, with a second, differently biased estimator agreeing on direction
-in $10$ of $10$ H\"older cells --- while on the \emph{same} documents a
-pre-registered interleaved split-half check finds the flagship per-document
-H\"older estimate agrees with itself at Spearman--Brown $\rho=0.063$, the best
-fractal quantity reaches $0.576$, and $0$ of $20$ \emph{candidates} clear a
-$\rho\!\ge\!0.60$ bar declared in advance. At $400$ tokens the estimate is dominated by estimator variance
-around a class-, domain- and temperature-conditional mean: it encodes \emph{which population a
-document came from}, its document-specific component too small to survive our bar. Four predictions follow, all four hold
-(Table~\ref{tab:map}) --- deleting
-all $54$ fractal features from an $85$-feature detector leaves AUROC at $0.9984$ and
-TPR@$1\%$FPR statistically unchanged ($0.9587\!\to\!0.9612$); the family recovers only
-about a sixth of the achievable signal once the population is balanced by
-construction; and it pays only when the
-population changes, $+0.0240$ AUROC on a matched RAID transfer, which we show is the
-population mean travelling. The result is a condition: treat a scaling estimator as a
-document representation only once its split-half reliability at the deployment
-length clears the estimator-variance floor.
+A thermometer with a five-degree error bar can still resolve a half-degree
+difference between two towns' \emph{climates} by averaging enough
+single-day readings; it cannot tell you the temperature at one house on one
+day, however sharp the average is. We argue the Hurst and H\"older
+exponents used to fingerprint machine-generated text are exactly that kind
+of instrument, and that this literature has read climate-level evidence as
+an answer to the single-reading question. In signal-to-noise terms, the
+exponent decomposes into a population term (signal) and estimator noise,
+and at real document length noise swamps signal by more than an order of
+magnitude. On $223{,}834$ GAGLE documents, $20$ of $20$ (domain, generator,
+exponent) cells separate with non-overlapping $95\%$ intervals, confirmed
+by a second, differently biased estimator agreeing on direction in $10$ of
+$10$ H\"older cells --- the population term is real and reproducible.
+Split each document's own tokens in half and re-estimate independently on
+each half, and the flagship exponent agrees with itself at Spearman--Brown
+$\rho=0.063$ against a $\rho\ge0.60$ bar fixed in advance, the best of
+twenty candidate quantities reaching only $0.576$ --- almost none of that
+signal survives to a single document. Four predictions follow, and all four
+hold (Table~\ref{tab:map}): deleting all $54$ fractal features from an
+$85$-feature detector leaves AUROC at $0.9984$ and TPR@$1\%$FPR
+statistically unchanged ($0.9587\!\to\!0.9612$); a within-population task
+holding the population term fixed by construction recovers only about a
+sixth of the achievable signal; and the family pays only when the
+population changes, $+0.0240$ AUROC on a matched RAID transfer --- the
+population moving, not any document read more accurately. A second,
+independent illusion appears in the same pipeline: a curvature detector's
+paraphrase recall \emph{rises} to $0.63$--$0.86$ under attacks from models
+sharing its scorer's lineage and collapses to $1.2$--$4.5\%$ once that
+overlap is removed --- robustness the field would credit to the detector is
+an artifact of who wrote the attack. The result is a condition, not a
+theorem: treat a scaling estimator as a document-level representation only
+once its split-half reliability at the deployment length clears the bar.
 \end{abstract}
 
 % =============================================================================
@@ -126,6 +134,22 @@ estimator on a finite realisation, and whether it resolves anything about that
 realisation, as opposed to the process that generated it, is a question about
 support. Related work (Appendix~\ref{app:related}) reports no reliability
 coefficient for a scaling estimator at document length.
+
+\paragraph{The argument in one picture, before the notation.} A thermometer
+with a five-degree error bar still resolves a real half-degree difference
+between two towns' climates, once enough single-day readings are averaged
+--- but handed one reading from one day, it cannot tell you which town
+produced it, because the instrument's own noise is larger than the quantity
+in question. Swap in a fractal exponent for the thermometer, a (domain,
+generator) population for the town, and one document's token budget for the
+single day, and this is the claim we test: the exponent's population-level
+signal is real, but at the token budget an actual document supplies, the
+exponent behaves like the one-day reading --- dominated by its own
+estimation noise, not by anything specific to the document it was computed
+from. \S\ref{sec:analogy} makes this literal, translates it into the
+paper's notation term by term, and derives four falsifiable predictions
+from it (Table~\ref{tab:map}); every technical result from here on is a
+test of one of those four.
 
 \paragraph{Two things this result is not.}
 It is not an attack on a claim nobody made: the step from a distribution-level
@@ -180,7 +204,7 @@ predicts the \emph{sign} of the family's contribution in all six cases
 costing one split and one correlation, independent of the downstream model.
 
 \smallskip
-\textbf{Secondary --- independent of the fractal question, and usable alone.}
+\textbf{A second, independent measurement illusion --- usable and citable on its own.}
 \textbf{(S1)} \emph{Scorer--attacker lineage inflates measured robustness}: a
 curvature detector's recall \emph{rises} under paraphrase from its own scorer's
 lineage and collapses under any other (\S\ref{sec:lineage}). \textbf{(S2)}
@@ -271,6 +295,15 @@ $d$ with class $c_d$ and domain $g_d$ as
   \qquad \mathbb{E}[\eta_d]=0 .
   \label{eq:decomp}
 \end{equation}
+\textbf{In the vocabulary a detector-feature engineer already uses, rather
+than psychometrics}: $\mu$ is a population signal (which generating process
+wrote the document), $\eta$ is estimator noise from fitting a slope on
+$\approx400$ tokens, and every reliability coefficient below is exactly a
+signal-to-noise ratio in disguise --- the fraction of \Hest's variance that
+is signal (population plus document) rather than noise. Split-half
+correlation, Spearman--Brown, and SNR name the same computation from three
+different fields; we use whichever name is doing the explanatory work in a
+given sentence, and default to SNR outside formal derivations.
 Q1 asks whether $\mu$ separates over $c$; Q2 asks about
 $\mathrm{Var}(\delta)/\big(\mathrm{Var}(\delta)+\mathrm{Var}(\eta)\big)$. Both
 $\mu$ and $\delta$ are shared between a document's halves while $\eta$ is not,
@@ -290,28 +323,55 @@ explains under $4\%$ of single-half variance for \Hest\ and under $0.2\%$ for
 near-zero reliability is document-level estimation noise, present almost
 unchanged once the population term is removed by construction.
 
-\subsection{The same idea without the algebra, and the four predictions it makes}
+\subsection{The same idea, translated term by term, and the four predictions it makes}
 \label{sec:analogy}
 
-Two neighbouring towns differ by half a degree in mean annual temperature. The
-difference is real, and a year of daily readings from each resolves it tightly. Now
-take a \emph{single} reading from a thermometer whose error is $\pm5^\circ$ and ask
-which town it came from. Nothing about the towns has changed; the reading simply
-cannot separate them, the instrument's noise dwarfing the quantity of interest at
-that sample size. \textbf{The climate is $\mu(c_d,g_d,T_d)$, the individual house is
-$\delta_d$, the thermometer's error is $\eta_d$} --- the whole of
-Eq.~\ref{eq:decomp}, and the algebra is done. The story does not
-merely illustrate the result; it \emph{predicts} four things, each a separate chance
-to be wrong. \textbf{(P1)} Knowing which country you are in, a second thermometer
-adds nothing --- deleting the fractal features from a detector that already has
-perplexity and style should cost nothing. \textbf{(P2)} A noisy needle twitches
-constantly and says nothing --- a greedy learner should \emph{use} these columns
-heavily and \emph{gain} nothing. \textbf{(P3)} The sharpest: ask it to distinguish
-\emph{two houses on the same street} and little should be left, the climate term
-being common to both. \textbf{(P4)} And the story must say where the thermometer is
-still worth carrying --- \emph{move to a different country} and it informs again,
-because the climate is what changed. Table~\ref{tab:map} maps the four tests to the
-four sections that follow.
+\S\ref{sec:intro} gave the picture; here it is translated into
+Eq.~\ref{eq:decomp} and cashed out as four predictions. \textbf{The climate
+is $\mu(c_d,g_d,T_d)$, the individual house is $\delta_d$, the thermometer's
+error is $\eta_d$} --- the whole of the decomposition, no more algebra
+needed. The four predictions are not four independent coin-flips: they are
+a single argument in four steps, and each step exists to close an escape
+route the previous one leaves open.
+
+\textbf{(P1) A second thermometer, told the country already.} Knowing which
+country you are in, a second thermometer adds nothing --- deleting the
+fractal features from a detector that already has perplexity and style
+should cost nothing. \textbf{(P2) The needle that twitches but says
+nothing.} A noisy instrument still gets read compulsively --- a greedy
+learner should \emph{use} these columns heavily while \emph{gaining}
+nothing from them. \textbf{Why P1 alone is not enough, and P2 is the next
+question it forces:} a family can be redundant for two very different
+reasons --- because it carries no information at all, or because it carries
+real, document-level information that simply overlaps with what perplexity
+and style already supply. Both stories predict P1. They make opposite
+predictions about \emph{how a greedy learner treats the family during
+training}: genuine-but-redundant signal earns little modelling attention
+once cheaper alternatives are available, while a population-conditional
+mean plus noise still looks locally correlated with the label and keeps
+attracting splits it cannot cash out --- P2 is exactly the split-gain
+versus permutation-importance divergence that tells these two stories
+apart.
+
+\textbf{(P3) The trap: two houses on the same street.} Passing P1 and P2
+still leaves one explanation standing --- that the redundancy is real
+correlation, not proof of zero content, and that content might yet surface
+once perplexity and style are no longer available to explain it away. P3 is
+built to catch exactly that: ask the representation to distinguish two
+houses on the same street, where the climate term is identical by
+construction for every document being compared, so any classification
+accuracy above chance can only come from $\delta$, the one thing the rival
+explanation needed to find. A genuine document-level signal would show up
+here in full; this is the last place it could hide.
+
+\textbf{(P4) Move country, and the same thermometer is useful again.} A
+story that only predicts negative results is not yet falsifiable --- it
+must also say where the instrument \emph{does} still work. Move to a
+different country and the same $\pm5^\circ$ thermometer informs again,
+because the climate itself changed: the fractal family should regain value
+exactly when the population shifts, never when only the document does.
+
+Table~\ref{tab:map} maps the four tests to the four sections that follow.
 
 \begin{table}[htbp]
 \centering
@@ -508,12 +568,12 @@ forward so the ablation below can price them independently.
 
 That the per-document estimate is dominated by estimator error at this
 support is a statement about an instrument, and on its own proves nothing
-about detection --- an unreliable quantity could still be useful by accident.
-This section and the two that follow close that gap by running the four
-tests of Table~\ref{tab:map} in order: P1 and P2 are consistency checks,
-\textbf{P3 is the strongest of them} because it holds the climate term fixed
-by construction and so isolates $\delta$, and P4 is the positive control that
-makes the account falsifiable rather than merely pessimistic.
+about detection --- an unreliable quantity could still be useful by
+accident. This section and the two that follow run the four tests of
+Table~\ref{tab:map} in the order \S\ref{sec:analogy} laid out: P1 and P2
+first, as necessary conditions a rival explanation could also satisfy; P3
+next, as the critical test only this account survives; P4 last, as the
+falsification control.
 
 \paragraph{The instrument.}
 The learner is deliberately unremarkable and held fixed across every
@@ -528,7 +588,7 @@ confound, a two-feature \arm{length\_only} arm reaching AUROC $0.8635$ at
 TPR@$1\%$FPR $0.0477$.
 % source: writing/methodology.md S4; findings/results/p3_tables.md RANDOM config 1
 
-\subsection{P1 and P2: redundant in-distribution, worthless at the margin}
+\subsection{P1 and P2 --- Necessary Conditions: Redundant In-Distribution, Worthless at the Margin}
 \label{sec:p1}
 
 \emph{In the story: a second thermometer, handed to someone who already knows which
@@ -559,7 +619,7 @@ share, with $35$ of $54$ zero or negative (full breakdown,
 Appendix~\ref{app:importance}). \textbf{Used constantly, worth nothing.}
 % source: findings/results/p3_tables.md, "Feature importance -- ALL declared features (D-13)"
 
-\subsection{P3 --- the strongest within-population test: hold the population fixed}
+\subsection{P3 --- The Critical Test: Eliminating the Last Alternative Explanation}
 \label{sec:withinpop}
 
 \emph{In the story: two houses on the same street.} P1 and P2 show the
@@ -723,14 +783,22 @@ them to describe the document in front of you.} This is a
 \emph{complete-case} result covering $32\%$ of RAID's rows (excluded
 majority: Appendix~\ref{app:limitations}).
 
-\section{A Secondary Finding: Scorer--Attacker Lineage Inflates Measured Robustness}
+\section{A Second Measurement Illusion: Scorer--Attacker Lineage Inflates Measured Robustness}
 \label{sec:lineage}
 
-\textbf{This section is independent of everything above.} It uses the same
-edit battery but is not about fractal features, and nothing in
-\S\ref{sec:ensemble}--\S\ref{sec:transfer} depends on it; we report it
-separately because it is reproducible and will silently affect any
-robustness evaluation built the way ours was.
+\textbf{This section is methodologically independent of everything
+above} --- it uses the same edit battery but is not about fractal features,
+and nothing in \S\ref{sec:ensemble}--\S\ref{sec:transfer} depends on its
+result, nor does it depend on theirs. What it shares with them is the
+paper's actual thesis: a measurement can look like it is reading the
+document in front of it while it is really reading an artifact of how the
+evaluation was built. There, the artifact was population identity smuggled
+in as document content; here, it is the attacker model's kinship with the
+scorer smuggled in as robustness. We give it its own section, with its own
+evidence, rather than folding it into the fractal argument, because it is
+reproducible on its own, requires none of that argument's machinery to
+check, and will silently affect any robustness evaluation built the way
+ours was.
 
 \textbf{Fast-DetectGPT's recall \emph{rises} under every Class II operator}, from a
 $0.5104$ baseline to $0.63$--$0.86$ --- at face value, paraphrasing making machine
