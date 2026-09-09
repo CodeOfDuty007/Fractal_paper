@@ -20,7 +20,6 @@ population level, and why that mostly doesn't survive to the per-document decisi
 - [Findings log](#findings-log)
 - [Citation](#citation)
 - [License](#license)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -158,14 +157,3 @@ number in the paper can be traced back to the check that produced it. See
 
 Code is released under the [MIT License](LICENSE). See the paper PDF for the paper's own
 copyright terms.
-
-## Acknowledgments
-
-AI coding assistants (Claude, and OpenAI Codex) were used during development to help write
-and refactor analysis code, draft documentation, and cross-check numeric consistency between
-the paper and its underlying data — all under direct human review and direction throughout.
-Consistent with how comparable ICLR paper repositories present authorship, they are credited
-here in prose rather than listed as GitHub contributors, since GitHub's contributor graph is
-derived from commit authorship and this project's commits reflect the responsible human
-author(s). The paper's own AI-use disclosure statement is the authoritative record of what
-AI assistance was used and how.

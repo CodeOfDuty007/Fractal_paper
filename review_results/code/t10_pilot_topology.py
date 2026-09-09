@@ -10,8 +10,8 @@ can be judged from measurement rather than guesswork.
 Representation: instead of the token-level log-probability score sequence
 (what Family A's H/S are computed from), embed OVERLAPPING WORD WINDOWS of
 each document's raw text with a small sentence embedding model
-(all-MiniLM-L6-v2, CPU-friendly, already the model named for this role
-elsewhere in this repo's CLAUDE.md). The resulting sequence of window
+(all-MiniLM-L6-v2, CPU-friendly, already used for this role elsewhere in
+the pipeline). The resulting sequence of window
 embeddings is a trajectory through embedding space -- a genuinely different
 representation of the same document, not a variant of the fractal one.
 
