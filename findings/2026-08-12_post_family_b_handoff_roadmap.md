@@ -35,7 +35,7 @@ Per `Extension1_PhaseWise_Execution_Plan.md`'s own P1 exit gate ("Feature store 
 
 ## Beyond P1 — planned, not built
 
-Per `CLAUDE.md`'s own explicit warning ("most of the pipeline stages they describe... are not yet in the repo") and confirmed directly against `src/`'s actual contents (no `splits.py`, no `eval/` directory, no `run_architecture_showdown.py`, no `models/` training code exist yet): everything from here forward is **design, not code**.
+Per the project's internal reference doc's own explicit warning ("most of the pipeline stages they describe... are not yet in the repo") and confirmed directly against `src/`'s actual contents (no `splits.py`, no `eval/` directory, no `run_architecture_showdown.py`, no `models/` training code exist yet): everything from here forward is **design, not code**.
 
 | Phase | Objective (from the plan doc) | Status |
 |---|---|---|

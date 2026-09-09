@@ -26,7 +26,7 @@ All under `paper/` at the SSD root (`/Volumes/NikPhotoSSD/paper/` on this Mac):
 | `gagle.zip` | 9.9GB | Raw corpus. Already present from earlier project work. Not read by Family B itself. |
 | `gpu_manifest_shards/` | 2.3GB, 720 files | The CPU pass's output — what Family B actually reads. Already present. |
 | `hf_cache/` | ~20GB | HF cache: gemma-2b, Mistral-7B, GAGLE dataset, and (added this session) the sentence-transformer embedder. |
-| `family_b_gpu_bundle/code/` | 384K (source `src/` size on the Mac) | This session's `src/`, pinned `requirements.txt`, `CLAUDE.md`. New this session. |
+| `family_b_gpu_bundle/code/` | 384K (source `src/` size on the Mac) | This session's `src/`, pinned `requirements.txt`, internal reference doc. New this session. |
 | `family_b_gpu_bundle/data/p1_gpu_shard_prefix_backfill.jsonl` | 255MB | The one data file the GPU pass reads at runtime. New this session. |
 | `family_b_gpu_bundle/wheels/` | ~1.1GB, 49 files | Every Python package + transitive dependency, for cp310/manylinux/x86_64. New this session. |
 | `family_b_gpu_bundle/README.md` | — | Setup + run instructions for the Ubuntu machine. New this session. |
