@@ -1,0 +1,50 @@
+% =============================================================================
+%  fig_nstar.tex -- reliability as a function of support, and where it crosses
+%  the pre-registered 0.60 bar. Every coordinate below is read directly from
+%  review_results/data/t2_n_star_composition.json (fBm noise-floor calibration
+%  at GAGLE's own observed H in [0.60,0.72], Var(delta) from the T0 decomposition,
+%  rho_SB = 2r/(1+r) composed at each N). None is illustrative or interpolated
+%  beyond the plotted grid points, which are joined by straight segments only.
+% =============================================================================
+\begin{tikzpicture}
+\begin{axis}[
+  width=\linewidth, height=0.60\linewidth,
+  xmode=log, log basis x=2,
+  xlabel={Support $N$ (tokens, log$_2$ scale)},
+  ylabel={Spearman--Brown $\rho_{\mathrm{SB}}(N)$},
+  xmin=90, xmax=14500, ymin=0, ymax=1.02,
+  xtick={100,200,400,800,1600,3200,6400,12800},
+  xticklabels={100,200,400,800,{1.6k},{3.2k},{6.4k},{12.8k}},
+  ytick={0,0.2,0.4,0.6,0.8,1.0},
+  grid=major, grid style={gray!15},
+  legend style={font=\scriptsize, at={(0.03,0.97)}, anchor=north west, draw=none,
+                fill=white, fill opacity=0.85, text opacity=1, row sep=-1pt},
+  tick label style={font=\scriptsize}, label style={font=\scriptsize},
+  axis line style={draw=inkGrey}, tick style={draw=inkGrey},
+  clip=false,
+]
+% GAGLE's own usable-token band (320-464), shaded, drawn first so it sits behind data
+\draw[fill=softGrey, draw=none] (axis cs:320,0) rectangle (axis cs:464,1.02);
+\node[font=\tiny, text=inkGrey, rotate=90, anchor=south] at (axis cs:392,0.63) {GAGLE support};
+% pre-registered bar
+\addplot[domain=90:14500, samples=2, dashed, thick, color=inkGrey] {0.60};
+\addlegendentry{$\rho=0.60$ bar}
+% series
+\addplot[color=okBlue, mark=*, mark size=1.3pt, thick] coordinates {
+ (100,0.2727)(200,0.3928)(400,0.4934)(800,0.7268)(1600,0.8284)(3200,0.8925)(6400,0.9473)(12800,0.9756)
+};
+\addlegendentry{Gemma $\Hest$ ($N^{\star}{=}800$)}
+\addplot[color=okSky, mark=square*, mark size=1.2pt, thick] coordinates {
+ (100,0.2474)(200,0.3618)(400,0.4605)(800,0.6999)(1600,0.8088)(3200,0.8791)(6400,0.9403)(12800,0.9723)
+};
+\addlegendentry{Mistral $\Hest$ ($N^{\star}{=}800$)}
+\addplot[color=okVermil, mark=triangle*, mark size=1.6pt, thick] coordinates {
+ (100,0.0275)(200,0.1005)(400,0.2287)(800,0.3547)(1600,0.3954)(3200,0.5580)(6400,0.6964)(12800,0.8245)
+};
+\addlegendentry{Gemma $\Sest$ ($N^{\star}{=}6400$)}
+\addplot[color=okOrange, mark=diamond*, mark size=1.6pt, thick] coordinates {
+ (100,0.0229)(200,0.0848)(400,0.1973)(800,0.3131)(1600,0.3516)(3200,0.5114)(6400,0.6553)(12800,0.7958)
+};
+\addlegendentry{Mistral $\Sest$ ($N^{\star}{=}6400$)}
+\end{axis}
+\end{tikzpicture}

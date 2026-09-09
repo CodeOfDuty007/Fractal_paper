@@ -1,0 +1,63 @@
+% ============================================================================
+%  fig_p3_detection.tex -- P3: frozen splits, ablation grid, D-11 pipeline.
+%  All AUROC values: config=full, random/random, LightGBM (data/p3_t1_results.json).
+% ============================================================================
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+% ---------------------------------------------------------------- splits
+\node[phase, minimum width=30mm, text width=36mm] (splits) at (2.1,5.6)
+  {\textbf{Frozen splits} (\texttt{splits\_v1.json})\\[2pt]
+   group-disjoint by seed article\\[1pt]
+   random $+$ 5$\times$LODO $+$ 2$\times$LOGO\\ $=$ \textbf{8 folds}};
+
+\node[phase, minimum width=30mm, text width=36mm] (cfg) at (2.1,2.9)
+  {\textbf{5 confound configs}\\[2pt]
+   full \textbar\ no-short-window\\ no-NaN-signal \textbar\ complete-case\\ clean-both};
+
+\node[phase, minimum width=30mm, text width=36mm] (pipe) at (2.1,0.5)
+  {\textbf{D-11 pipeline} (order is load-bearing)\\[2pt]
+   class weight $\rightarrow$ calibrate on val\\ at true prevalence $\rightarrow$ report};
+
+% ---------------------------------------------------------------- the grid
+\node[grouplab] at (9.4,7.0) {Ablation arms (config = full, random/random, LightGBM)};
+
+\node[phase, fill=okBlue!6, inner sep=6pt] (grid) at (9.4,4.35)
+  {\begin{tabular}{@{}l r r r@{}}
+     \textbf{arm} & \textbf{\#feat} & \textbf{AUROC} & \textbf{TPR@1\%}\\[2pt]
+     \texttt{fractal\_only}       & 54 & \textcolor{okVermil}{\textbf{0.6629}} & 0.0641\\
+     \texttt{stat\_only}          & 17 & 0.9795 & 0.7209\\
+     \texttt{style\_only}         & 14 & 0.9919 & 0.7964\\
+     \texttt{fractal+stat}        & 71 & 0.9785 & 0.6836\\
+     \texttt{fractal+style}       & 68 & 0.9917 & 0.8171\\
+     \texttt{all}                 & 85 & 0.9984 & 0.9587\\
+     \texttt{all\_minus\_fractal} & 31 & \textcolor{okGreen!60!black}{\textbf{0.9984}}
+                                        & \textcolor{okGreen!60!black}{\textbf{0.9612}}\\
+   \end{tabular}};
+
+\node[phase, fill=softGrey, inner sep=6pt] (diag) at (9.4,1.55)
+  {\begin{tabular}{@{}l r r@{}}
+     \multicolumn{3}{@{}l}{\textbf{Diagnostic arms + negative control}}\\
+     \multicolumn{3}{@{}l}{\scriptsize each has a stated failure condition}\\[3pt]
+     \texttt{length\_only}       & 2  & 0.8635\\
+     \texttt{provenance\_only}   & 6  & 0.5655\\
+     \texttt{shortwindow\_only}  & 2  & 0.5290\\
+     \texttt{missingness\_only}  & 85 & 0.5169\\
+     \texttt{label\_shuffle} \scriptsize(harness control) & --- & $\approx 0.5$\\
+   \end{tabular}};
+
+\node[finding, minimum width=64mm, text width=78mm] (fnd) at (9.4,-1.15)
+  {\textbf{Headline.} Deleting all 54 fractal features leaves AUROC unchanged
+   at $0.9984$ and \emph{improves} TPR@1\%FPR ($0.9587 \rightarrow 0.9612$).
+   A 31-feature model matches an 85-feature one.};
+
+\draw[flow] (splits.east) -- ++(0.5,0) |- (grid.west);
+\draw[flow] (cfg.east) -- ++(0.5,0) |- (grid.west);
+\draw[flow] (pipe.east) -- ++(0.5,0) |- (diag.west);
+\draw[flow] (grid.south) -- (diag.north);
+\draw[flow] (diag.south) -- (fnd.north);
+
+\node[note, text width=34mm, anchor=north west] at (0.3,-0.9)
+  {$5 \times 8 \times 12$ arm/learner\\ combinations $=$ \textbf{304 cells},\\
+   each with 2{,}000-fold\\ stratified bootstrap CIs.};
+
+\end{tikzpicture}

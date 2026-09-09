@@ -1,0 +1,29 @@
+[load] 100/721 shards, 18,788 docs, 3s
+[load] 200/721 shards, 36,649 docs, 6s
+[load] 300/721 shards, 83,116 docs, 13s
+[load] 400/721 shards, 147,376 docs, 24s
+[load] 500/721 shards, 198,789 docs, 32s
+[load] 600/721 shards, 208,187 docs, 33s
+[load] 700/721 shards, 217,018 docs, 35s
+[load] done: 721 shards, 223,834 docs, 36s
+[permutation] rep 10/100 done, 1217s elapsed, ETA 182.5 min
+[permutation] rep 20/100 done, 2483s elapsed, ETA 165.5 min
+[permutation] rep 30/100 done, 3744s elapsed, ETA 145.6 min
+[permutation] rep 40/100 done, 5017s elapsed, ETA 125.4 min
+[permutation] rep 50/100 done, 6297s elapsed, ETA 104.9 min
+[permutation] rep 60/100 done, 7592s elapsed, ETA 84.4 min
+[permutation] rep 70/100 done, 8919s elapsed, ETA 63.7 min
+[permutation] rep 80/100 done, 10246s elapsed, ETA 42.7 min
+[permutation] rep 90/100 done, 11563s elapsed, ETA 21.4 min
+[permutation] rep 100/100 done, 12855s elapsed, ETA 0.0 min
+gemma_H: rho_pooled median=0.0030 [-0.0030,0.0099]  rho_within median=0.0019
+gemma_H_R2: rho_pooled median=0.0473 [0.0408,0.0555]  rho_within median=0.0468
+gemma_S: rho_pooled median=0.0029 [-0.0034,0.0106]  rho_within median=0.0025
+gemma_S_R2: rho_pooled median=0.0027 [-0.0037,0.0101]  rho_within median=0.0024
+mistral_H: rho_pooled median=0.0028 [-0.0021,0.0107]  rho_within median=0.0013
+mistral_H_R2: rho_pooled median=0.0362 [0.0280,0.0420]  rho_within median=0.0359
+mistral_S: rho_pooled median=0.0021 [-0.0051,0.0095]  rho_within median=0.0017
+mistral_S_R2: rho_pooled median=0.0023 [-0.0039,0.0087]  rho_within median=0.0018
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t1_permutation_stats.json
+[permutation] TOTAL 12856s

@@ -1,0 +1,21 @@
+[load] 100/721 shards, 18,788 docs, 19s
+[load] 200/721 shards, 36,649 docs, 39s
+[load] 300/721 shards, 83,116 docs, 88s
+[load] 400/721 shards, 147,376 docs, 157s
+[load] 500/721 shards, 198,789 docs, 211s
+[load] 600/721 shards, 208,187 docs, 219s
+[load] 700/721 shards, 217,018 docs, 226s
+[load] done: 721 shards, 223,834 docs, 231s
+[t4] 20/112 chunks, 79,637 rows, 572s
+[t4] 40/112 chunks, 159,258 rows, 619s
+[t4] 60/112 chunks, 238,879 rows, 681s
+[t4] 80/112 chunks, 318,563 rows, 703s
+[t4] 100/112 chunks, 398,221 rows, 789s
+[t4] feature computation done: 445,738 rows in 881s
+gemma_DFA_H: n=221,904 rho_pooled=0.6289 rho_within=0.6014 passes_pooled(>=0.60)=True
+gemma_Whittle_H: n=221,904 rho_pooled=0.6773 rho_within=0.6471 passes_pooled(>=0.60)=True
+mistral_DFA_H: n=223,834 rho_pooled=0.5994 rho_within=0.5658 passes_pooled(>=0.60)=False
+mistral_Whittle_H: n=223,834 rho_pooled=0.6415 rho_within=0.6046 passes_pooled(>=0.60)=True
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t4_alt_estimators_reliability.json
+[t4] TOTAL 906s

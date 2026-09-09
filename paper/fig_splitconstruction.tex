@@ -1,0 +1,45 @@
+% =============================================================================
+%  fig_splitconstruction.tex -- reliability under contiguous-block splits of
+%  growing block size, the direct empirical test of whether single-token
+%  interleaving damages the sequence geometry. Coordinates read directly from
+%  review_results/data/t0_t1_MERGED_table.json (rho_pooled, block_b series,
+%  b=1 is interleave). Contiguous, permutation and the invalid bootstrap
+%  construction are reported as text in Table~\ref{tab:splitconstruction}
+%  rather than folded into this axis, since they are not points on the same
+%  block-size scale.
+% =============================================================================
+\begin{tikzpicture}
+\begin{axis}[
+  width=\linewidth, height=0.58\linewidth,
+  xmode=log, log basis x=2,
+  xlabel={Block size (tokens); $b{=}1$ is single-token interleaving},
+  ylabel={$\rho_{\mathrm{pooled}}$ (Spearman--Brown)},
+  xmin=0.85, xmax=38, ymin=0, ymax=0.65,
+  xtick={1,4,8,16,32},
+  ytick={0,0.2,0.4,0.6},
+  grid=major, grid style={gray!15},
+  legend style={font=\scriptsize, at={(0.97,0.97)}, anchor=north east, draw=none,
+                fill=white, fill opacity=0.85, text opacity=1},
+  tick label style={font=\scriptsize}, label style={font=\scriptsize},
+  axis line style={draw=inkGrey}, tick style={draw=inkGrey},
+]
+\addplot[domain=0.85:38, samples=2, dashed, thick, color=inkGrey] {0.60};
+\addlegendentry{$\rho=0.60$ bar}
+\addplot[color=okBlue, mark=*, mark size=1.5pt, thick] coordinates {
+ (1,0.5763)(4,0.5624)(8,0.5486)(16,0.5342)(32,0.5013)
+};
+\addlegendentry{Gemma $\Hest$}
+\addplot[color=okSky, mark=square*, mark size=1.4pt, thick] coordinates {
+ (1,0.5465)(4,0.5308)(8,0.5232)(16,0.5128)(32,0.4777)
+};
+\addlegendentry{Mistral $\Hest$}
+\addplot[color=okVermil, mark=triangle*, mark size=1.8pt, thick] coordinates {
+ (1,0.0626)(4,0.0526)(8,0.0496)(16,0.0490)(32,0.0396)
+};
+\addlegendentry{Gemma $\Sest$}
+\addplot[color=okOrange, mark=diamond*, mark size=1.8pt, thick] coordinates {
+ (1,0.0497)(4,0.0485)(8,0.0467)(16,0.0348)(32,0.0280)
+};
+\addlegendentry{Mistral $\Sest$}
+\end{axis}
+\end{tikzpicture}

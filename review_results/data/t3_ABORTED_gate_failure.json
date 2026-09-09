@@ -1,0 +1,10 @@
+{
+  "gate": {
+    "all_features_reproduced": 0.5836807615816951,
+    "all_features_frozen": 0.5816055952600065,
+    "fractal_only_reproduced": 0.19813341388246164,
+    "fractal_only_frozen": 0.19813341388246164,
+    "all_features_match": false,
+    "fractal_only_match": true
+  }
+}

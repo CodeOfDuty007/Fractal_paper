@@ -1,0 +1,19 @@
+/home/user/miniconda3/envs/review/lib/python3.11/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator LabelEncoder from version 1.7.2 when using version 1.9.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/home/user/miniconda3/envs/review/lib/python3.11/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator _SigmoidCalibration from version 1.7.2 when using version 1.9.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/home/user/miniconda3/envs/review/lib/python3.11/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator CalibratedClassifierCV from version 1.7.2 when using version 1.9.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+[t5] 54 fractal columns of 85 total features
+[t5] complete-case population: n=22041 (excluded 46171 with a NaN feature)
+[gate] {'n': 22041, 'auroc_reproduced': 0.8032112857989935, 'auroc_frozen': 0.8032112857989935, 'match': True}
+[t5] reference gap (all_85 - all_minus_fractal_31, same rows): 0.0240 (0.8032 vs 0.7792)
+[t5] 96 (generator,domain) groups
+[t5] REPLACEMENT (fractal cols -> group mean): AUROC=0.8149 (baseline=0.8032, no-fractal=0.7792); fraction of +0.0240 gap recovered by group means = 1.488
+[t5] SUBTRACTION (fractal cols -> x - group mean): AUROC=0.7989; fraction of +0.0240 gap REMAINING after removing group means = 0.822
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t5_raid_group_mean.json
+[T5] TOTAL 28s

@@ -1,0 +1,90 @@
+{
+  "n_reps_planned": 500,
+  "n_reps_run": 100,
+  "n_reps": 100,
+  "reduction_reason": "This session's cgroup CPU quota (cpu.max=800000 100000) hard-caps available CPU at 8.0 cores regardless of the 192 cores `nproc` reports -- confirmed via /sys/fs/cgroup/cpu.max. At ~1.74 min/rep on 8 cores, 500 reps would take ~14.5 hours. Reduced to 100 reps. Statistical justification: each replicate's rho is computed over ~200,000 documents, so within-replicate sampling error is negligible -- the replicates characterize variability ACROSS permutation draws only, and a 5th/95th percentile from 100 draws is adequate for the plan's actual question (does gemma_S stay in [0.03,0.12] across constructions).",
+  "n_docs": 223834,
+  "summary": {
+    "gemma_H": {
+      "n_reps": 100,
+      "rho_pooled_median": 0.003031753193283346,
+      "rho_pooled_p5": -0.002972472801878944,
+      "rho_pooled_p95": 0.00988068867397938,
+      "rho_within_median": 0.0018928785245469768,
+      "rho_within_p5": -0.004408756360964161,
+      "rho_within_p95": 0.00882368637231732,
+      "n_docs_median": 221904
+    },
+    "gemma_H_R2": {
+      "n_reps": 100,
+      "rho_pooled_median": 0.04731612763605288,
+      "rho_pooled_p5": 0.040783868112354675,
+      "rho_pooled_p95": 0.05548177821870669,
+      "rho_within_median": 0.04677988449032387,
+      "rho_within_p5": 0.040113822595109115,
+      "rho_within_p95": 0.0549559897941257,
+      "n_docs_median": 221904
+    },
+    "gemma_S": {
+      "n_reps": 100,
+      "rho_pooled_median": 0.0028648539983358815,
+      "rho_pooled_p5": -0.0033963113284593126,
+      "rho_pooled_p95": 0.010628164452009507,
+      "rho_within_median": 0.002463632699871233,
+      "rho_within_p5": -0.003877714358136653,
+      "rho_within_p95": 0.010211550397322246,
+      "n_docs_median": 195941
+    },
+    "gemma_S_R2": {
+      "n_reps": 100,
+      "rho_pooled_median": 0.0027166672471494397,
+      "rho_pooled_p5": -0.003675334685303522,
+      "rho_pooled_p95": 0.010117165270969968,
+      "rho_within_median": 0.0023533208651538343,
+      "rho_within_p5": -0.0043026977343562905,
+      "rho_within_p95": 0.009536628637614338,
+      "n_docs_median": 221901
+    },
+    "mistral_H": {
+      "n_reps": 100,
+      "rho_pooled_median": 0.0028134700947252253,
+      "rho_pooled_p5": -0.0020643535573535115,
+      "rho_pooled_p95": 0.010729556161994456,
+      "rho_within_median": 0.001320754314533058,
+      "rho_within_p5": -0.0035502093923642235,
+      "rho_within_p95": 0.00951166600711748,
+      "n_docs_median": 223834
+    },
+    "mistral_H_R2": {
+      "n_reps": 100,
+      "rho_pooled_median": 0.03620254759847871,
+      "rho_pooled_p5": 0.027992054316217735,
+      "rho_pooled_p95": 0.042001764160127325,
+      "rho_within_median": 0.0358628368373437,
+      "rho_within_p5": 0.027482701182568726,
+      "rho_within_p95": 0.041430216478954694,
+      "n_docs_median": 223834
+    },
+    "mistral_S": {
+      "n_reps": 100,
+      "rho_pooled_median": 0.002082424614279854,
+      "rho_pooled_p5": -0.005143866419500434,
+      "rho_pooled_p95": 0.00948498558000275,
+      "rho_within_median": 0.0017161244288692332,
+      "rho_within_p5": -0.005558387393941547,
+      "rho_within_p95": 0.00890365886531751,
+      "n_docs_median": 193785
+    },
+    "mistral_S_R2": {
+      "n_reps": 100,
+      "rho_pooled_median": 0.0022793508925870016,
+      "rho_pooled_p5": -0.003948553627538577,
+      "rho_pooled_p95": 0.008748221008673413,
+      "rho_within_median": 0.0018335722440373365,
+      "rho_within_p5": -0.004433451089924911,
+      "rho_within_p95": 0.008438295364307303,
+      "n_docs_median": 223832
+    }
+  },
+  "runtime_sec": 12855.866414546967
+}

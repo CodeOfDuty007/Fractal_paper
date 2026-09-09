@@ -1,0 +1,66 @@
+% ============================================================================
+%  fig_p4_robustness.tex -- P4: attack cascade and the robustness battery.
+%  NOTE: 6 attack types, not the 7 the design doc lists. `human_revision` is
+%  excluded: 89.2% of its outputs were near-identical to the source
+%  (cosine > 0.98) -- a no-op, not an edit.
+%  Recall figures are recall@1%FPR (data/p4_task5_final_comparison.json).
+% ============================================================================
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[corpus, minimum width=28mm, text width=34mm] (pop) at (2.0,5.9)
+  {Stratified GAGLE\\ \texttt{llm\_text} subset\\[1pt] 39{,}810 (doc, variant) pairs};
+
+\node[gpuphase, minimum width=30mm, text width=38mm] (att) at (2.0,3.5)
+  {\textbf{Attack cascade} (A100)\\[2pt]
+   paraphrase-light \textbar\ -heavy\\ style-transfer \textbar\ sentence-reorder\\
+   typo-noise \textbar\ summarise-then-expand};
+
+\node[phase, minimum width=30mm, text width=38mm] (guard) at (2.0,1.2)
+  {\textbf{Semantic-preservation guard}\\[2pt]
+   embedding cosine $+$ NLI;\\ discard content-destroying edits\\
+   (\texttt{human\_revision} excluded)};
+
+\node[gpuphase, minimum width=26mm, text width=32mm] (resc) at (6.9,1.2)
+  {\textbf{Re-score} both scorers\\ (Gemma-2B, Mistral-7B)\\ $\rightarrow$ token log-probs};
+
+\node[phase, minimum width=26mm, text width=32mm] (fam) at (6.9,3.5)
+  {Recompute Families A--C\\[2pt]
+   $+$ \textbf{Family D}: $\Delta H$, $\Delta S$,\\ $\Delta \log\mathrm{PPL}$};
+
+\node[artifact, minimum width=28mm] (v2) at (6.9,5.9)
+  {v2\_edited.parquet\\[1pt] \upshape\rmfamily $39{,}810 \times 94$};
+
+% ---------------------------------------------------------------- battery
+% moved right from x=12.0: at text width 70mm the box spanned x 8.5-15.5 and
+% collided with the "Recompute Families A--C" node (right edge 8.5), clipping
+% its text -- caught by rendering. Also switched to tabular so the arrow
+% column lines up instead of drifting with \hfill.
+\node[evalnode, inner sep=6pt] (bat) at (13.4,4.4)
+  {\begin{tabular}{@{}l r@{}}
+     \multicolumn{2}{@{}l}{\textbf{Robustness battery} --- 5 detectors $\times$ 6 attacks}\\
+     \multicolumn{2}{@{}l}{\scriptsize recall@1\%FPR, clean $\rightarrow$ worst attack}\\[3pt]
+     \texttt{roberta}           & $0.9989 \rightarrow 0.9959$\\
+     \texttt{binoculars}        & $0.8728 \rightarrow 0.7456$\\
+     \texttt{tabular} \scriptsize(85-feat) & $0.9559 \rightarrow \textcolor{okVermil}{\mathbf{0.2670}}$\\
+     \texttt{fastdetectgpt}     & $0.5104 \rightarrow 0.1967$\\
+     \texttt{perplexity\_gemma} & $0.0935$\ \emph{\scriptsize(below floor)}\\
+   \end{tabular}};
+
+\node[finding, minimum width=58mm, text width=72mm] (pat) at (13.4,0.9)
+  {\textbf{Three distinct failure modes.}
+   (i) \texttt{tabular} collapses \emph{specifically} on sentence-reorder ---
+   an order-sensitive detector.
+   (ii) \texttt{fastdetectgpt} recall \emph{rises} under paraphrase: a
+   same-family artifact (Gemma-paraphrased text is maximally predictable to
+   the Gemma scorer); it reverses under a non-lineage attacker.
+   (iii) \texttt{roberta} is near-unbreakable across all six.};
+
+\draw[flow] (pop) -- (att);
+\draw[flow] (att) -- (guard);
+\draw[flow] (guard) -- (resc);
+\draw[flow] (resc) -- (fam);
+\draw[flow] (fam) -- (v2);
+\draw[flow] (v2.east) -- ++(0.6,0) |- (bat.west);
+\draw[flow] (bat.south) -- (pat.north);
+
+\end{tikzpicture}

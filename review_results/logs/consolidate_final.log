@@ -1,0 +1,96 @@
+
+====================================================================================================
+MERGED T0/T1 TABLE  (rho_pooled | rho_within, by construction)
+====================================================================================================
+
+gemma_H:
+  interleave       pooled=0.5763  within=0.5522  (n=221,904)
+  contiguous       pooled=0.2609  within=0.2106  (n=221,904)
+  block_4          pooled=0.5624  within=0.5349  (n=221,904)
+  block_8          pooled=0.5486  within=0.5158  (n=221,904)
+  block_16         pooled=0.5342  within=0.4947  (n=221,904)
+  block_32         pooled=0.5013  within=0.4556  (n=221,904)
+  block_bootstrap  pooled=0.7779  within=0.7626  (n=221,904)
+  matched_sweep    pooled=0.5763  within=0.5522  (n=221,904)
+  permutation      pooled_median=0.5443 [0.5424,0.5462]  within_median=0.5151  (n_reps=20)
+
+gemma_S:
+  interleave       pooled=0.0626  within=0.0601  (n=196,971)
+  contiguous       pooled=0.0159  within=0.0149  (n=195,315)
+  block_4          pooled=0.0526  within=0.0496  (n=197,248)
+  block_8          pooled=0.0496  within=0.0469  (n=197,350)
+  block_16         pooled=0.0490  within=0.0461  (n=197,028)
+  block_32         pooled=0.0396  within=0.0369  (n=196,327)
+  block_bootstrap  pooled=0.2047  within=0.1984  (n=218,123)
+  matched_sweep    pooled=0.0626  within=0.0601  (n=196,971)
+  permutation      pooled_median=0.0530 [0.0484,0.0571]  within_median=0.0503  (n_reps=20)
+
+mistral_H:
+  interleave       pooled=0.5465  within=0.5199  (n=223,834)
+  contiguous       pooled=0.2678  within=0.2024  (n=223,832)
+  block_4          pooled=0.5308  within=0.4988  (n=223,834)
+  block_8          pooled=0.5232  within=0.4825  (n=223,834)
+  block_16         pooled=0.5128  within=0.4656  (n=223,834)
+  block_32         pooled=0.4777  within=0.4235  (n=223,834)
+  block_bootstrap  pooled=0.7769  within=0.7586  (n=223,832)
+  matched_sweep    pooled=0.5465  within=0.5199  (n=223,834)
+  permutation      pooled_median=0.5152 [0.5129,0.5182]  within_median=0.4819  (n_reps=20)
+
+mistral_S:
+  interleave       pooled=0.0497  within=0.0464  (n=195,552)
+  contiguous       pooled=0.0040  within=0.0040  (n=192,786)
+  block_4          pooled=0.0485  within=0.0455  (n=195,478)
+  block_8          pooled=0.0467  within=0.0434  (n=195,765)
+  block_16         pooled=0.0348  within=0.0318  (n=194,867)
+  block_32         pooled=0.0280  within=0.0258  (n=194,759)
+  block_bootstrap  pooled=0.1912  within=0.1853  (n=219,470)
+  matched_sweep    pooled=0.0497  within=0.0464  (n=195,552)
+  permutation      pooled_median=0.0452 [0.0386,0.0498]  within_median=0.0422  (n_reps=20)
+
+[headline test] gemma_S rho_pooled stays in [0.03,0.12] across valid constructions (excludes ['block_bootstrap']): False
+    values: [('interleave', 0.0626), ('contiguous', 0.0159), ('block_4', 0.0526), ('block_8', 0.0496), ('block_16', 0.049), ('block_32', 0.0396), ('matched_sweep', 0.0626), ('permutation', 0.053)]
+    BELOW band (expected for 'contiguous' -- drift confound, evidence FOR its rejection, not a test failure): [('contiguous', 0.0159)]
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_MERGED_table.json
+
+[N*] gemma_S: Var(delta)=0.01049  N*=6400
+    N=   100  Var(eta_N)=0.74238  r(N)=0.0139  rho_SB(N)=0.0275
+    N=   200  Var(eta_N)=0.18773  r(N)=0.0529  rho_SB(N)=0.1005
+    N=   400  Var(eta_N)=0.07074  r(N)=0.1291  rho_SB(N)=0.2287
+    N=   800  Var(eta_N)=0.03816  r(N)=0.2156  rho_SB(N)=0.3547
+    N=  1600  Var(eta_N)=0.03207  r(N)=0.2464  rho_SB(N)=0.3954
+    N=  3200  Var(eta_N)=0.01661  r(N)=0.3870  rho_SB(N)=0.5580
+    N=  6400  Var(eta_N)=0.00915  r(N)=0.5342  rho_SB(N)=0.6964
+    N= 12800  Var(eta_N)=0.00446  r(N)=0.7015  rho_SB(N)=0.8245
+
+[N*] gemma_H: Var(delta)=0.00217  N*=800
+    N=   100  Var(eta_N)=0.01158  r(N)=0.1579  rho_SB(N)=0.2727
+    N=   200  Var(eta_N)=0.00672  r(N)=0.2444  rho_SB(N)=0.3928
+    N=   400  Var(eta_N)=0.00446  r(N)=0.3275  rho_SB(N)=0.4934
+    N=   800  Var(eta_N)=0.00163  r(N)=0.5709  rho_SB(N)=0.7268
+    N=  1600  Var(eta_N)=0.00090  r(N)=0.7070  rho_SB(N)=0.8284
+    N=  3200  Var(eta_N)=0.00052  r(N)=0.8058  rho_SB(N)=0.8925
+    N=  6400  Var(eta_N)=0.00024  r(N)=0.8999  rho_SB(N)=0.9473
+    N= 12800  Var(eta_N)=0.00011  r(N)=0.9524  rho_SB(N)=0.9756
+
+[N*] mistral_S: Var(delta)=0.00870  N*=6400
+    N=   100  Var(eta_N)=0.74238  r(N)=0.0116  rho_SB(N)=0.0229
+    N=   200  Var(eta_N)=0.18773  r(N)=0.0443  rho_SB(N)=0.0848
+    N=   400  Var(eta_N)=0.07074  r(N)=0.1095  rho_SB(N)=0.1973
+    N=   800  Var(eta_N)=0.03816  r(N)=0.1856  rho_SB(N)=0.3131
+    N=  1600  Var(eta_N)=0.03207  r(N)=0.2133  rho_SB(N)=0.3516
+    N=  3200  Var(eta_N)=0.01661  r(N)=0.3436  rho_SB(N)=0.5114
+    N=  6400  Var(eta_N)=0.00915  r(N)=0.4874  rho_SB(N)=0.6553
+    N= 12800  Var(eta_N)=0.00446  r(N)=0.6608  rho_SB(N)=0.7958
+
+[N*] mistral_H: Var(delta)=0.00190  N*=800
+    N=   100  Var(eta_N)=0.01158  r(N)=0.1411  rho_SB(N)=0.2474
+    N=   200  Var(eta_N)=0.00672  r(N)=0.2209  rho_SB(N)=0.3618
+    N=   400  Var(eta_N)=0.00446  r(N)=0.2991  rho_SB(N)=0.4605
+    N=   800  Var(eta_N)=0.00163  r(N)=0.5383  rho_SB(N)=0.6999
+    N=  1600  Var(eta_N)=0.00090  r(N)=0.6790  rho_SB(N)=0.8088
+    N=  3200  Var(eta_N)=0.00052  r(N)=0.7843  rho_SB(N)=0.8791
+    N=  6400  Var(eta_N)=0.00024  r(N)=0.8873  rho_SB(N)=0.9403
+    N= 12800  Var(eta_N)=0.00011  r(N)=0.9461  rho_SB(N)=0.9723
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t2_n_star_composition.json

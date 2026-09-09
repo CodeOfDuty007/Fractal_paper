@@ -1,0 +1,18 @@
+[t2-step2] 720 members to scan
+[t2-step2]   100/720 members scanned, 3,425 unique human docs so far, 24s
+[t2-step2]   200/720 members scanned, 3,848 unique human docs so far, 50s
+[t2-step2]   300/720 members scanned, 4,999 unique human docs so far, 111s
+[t2-step2] reached all 5000 known human docs at member 315/720, 124s -- stopping scan early
+[t2-step2] done scanning: 5,000 unique human docs, 124s
+[t2-step2] block-variance computation done, 148s
+H_100: n_usable=5000  mean_within_doc_var=0.01005  median=0.00958
+H_200: n_usable=5000  mean_within_doc_var=0.00744  median=0.00675
+H_400: n_usable=5000  mean_within_doc_var=0.00461  median=0.00370
+H_800: n_usable=4996  mean_within_doc_var=0.00139  median=0.00061
+S_100: n_usable=4991  mean_within_doc_var=0.49441  median=0.33233
+S_200: n_usable=5000  mean_within_doc_var=0.28328  median=0.19443
+S_400: n_usable=5000  mean_within_doc_var=0.06031  median=0.04510
+S_800: n_usable=4996  mean_within_doc_var=0.02437  median=0.01109
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t2_step2_real_text_bracket.json
+[t2-step2] TOTAL 148s

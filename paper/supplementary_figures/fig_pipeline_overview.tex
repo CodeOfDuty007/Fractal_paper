@@ -1,0 +1,105 @@
+% ============================================================================
+%  fig_pipeline_overview.tex -- whole-project dataflow, P0 through P5.
+%  Requires preamble_figures.tex in the document preamble.
+%
+%  REWORK (2026-08-30, owner directive): the first draft of this figure gave
+%  P2's empty whitelist and its "never read" dead-edge the dominant visual
+%  weight (a failnode, a separate artifact node, AND a diagonal red edge
+%  snaking across the whole canvas) -- disproportionate to one diagnostic
+%  result out of five phases of findings. P2 is real and stays, but as ONE
+%  compact node like every other phase; the whitelist artifact and its
+%  dead-edge move entirely into fig_p2_reliability.tex, the dedicated P2
+%  figure, where that level of detail belongs. The findings banner is
+%  replaced: instead of restating P2+P3's shared negative result, it now
+%  carries the project's actual throughline, the dissociation that P2, P3,
+%  P4 and P5 jointly establish -- fractal features are redundant
+%  in-distribution, ACTIVELY HURT under 2 of 6 real attacks, and are the
+%  only source of a real, significant advantage under genuine cross-corpus
+%  transfer. That is the finding the whole pipeline was built to surface,
+%  not any single phase's result in isolation.
+%
+%  LAYOUT: verified by rendering, not by eye. Node gaps are >= 1.9cm so
+%  edge labels sit in clear space; the findings banner spans the lower band
+%  where nothing else is drawn.
+% ============================================================================
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+% ------------------------------------------------------------ input corpora
+\node[corpus, minimum width=28mm] (gagle) at (2.4,8.3)
+  {\textbf{GAGLE}\\[1pt] 223{,}834 docs\\ 5 domains $\times$ 8 prompt types};
+
+\node[corpus, minimum width=28mm] (raid) at (17.7,1.9)
+  {\textbf{RAID}\\[1pt] 68{,}212 docs\\ 11 generators, 8 domains};
+
+% --------------------------------------------------------------- main spine
+\node[phase, minimum width=30mm] (p0) at (2.4,6.0)
+  {\textbf{P0}~~Corpus baseline\\[1pt]
+   $\tau\!\in\![8,320]$, $\varepsilon\!=\!10^{-2}$\\
+   drop 64 / clip 464 / min 320};
+
+\node[phase, minimum width=32mm] (p1) at (7.6,6.0)
+  {\textbf{P1}~~Feature store\\[1pt]
+   Family A (54) $+$ B (17)\\ $+$ C (14) $=$ 85 features};
+
+\node[phase, minimum width=32mm] (p3) at (12.6,6.0)
+  {\textbf{P3}~~Binary detection\\[1pt]
+   5 configs $\times$ 8 folds\\ $\times$ 12 arms $=$ 304 cells};
+
+\node[evalnode, minimum width=28mm] (p4) at (17.7,7.9)
+  {\textbf{P4}~~Robustness\\[1pt]
+   6 attacks $\times$ 5 detectors\\ 39{,}810 edited docs};
+
+\node[evalnode, minimum width=28mm] (p5) at (17.7,4.7)
+  {\textbf{P5}~~Transfer $+$ multiclass\\[1pt]
+   T2 / T3 / GAGLE$\rightarrow$RAID\\ 11-class generator ID};
+
+% ------------------------------------------------------- P2: one node, not a spine
+\node[phase, minimum width=34mm, text width=40mm] (p2) at (7.6,3.15)
+  {\textbf{P2}~~Split-half reliability\\[1pt]
+   pre-registered bar $\rho\!\geq\!0.60$: \textbf{0/20 pass}\\
+   best feature $\rho = 0.063$};
+
+% ------------------------------------------------------------------- edges
+\draw[flow] (gagle) -- (p0);
+\draw[flow] (p0) -- node[edgelab, pos=0.5, above=1pt]{single pass} (p1);
+\draw[flow] (p1) -- node[edgelab, pos=0.5, above=1pt]{85 feat.} (p3);
+% route the fan-out on a fixed vertical at x=15.2: it must clear P3's
+% east edge (~14.2) AND P4/P5's west edges (~15.7). An earlier revision
+% used ++(0.55,0), putting the connector INSIDE P4/P5 so the arrowheads
+% clipped their first characters -- caught by rendering at 150 dpi.
+\draw[flow] (p3.east) -- (15.2,6.0) |- (p4.west);
+\draw[flow] (p3.east) -- (15.2,6.0) |- (p5.west);
+\draw[flow] (raid) -- (p5);
+
+\draw[flow] (p1.south) -- (p2.north);
+\draw[flow] (p2.south) -- ++(0,-0.75)
+  node[edgelab, pos=1, below, text width=44mm, align=center]
+  {feeds P3's fractal family regardless of gate outcome ---\\
+   see fig\_p2\_reliability.tex for the whitelist detail};
+
+% --------------------------------------------- the project's dissociation (finding)
+\node[finding, minimum width=112mm, text width=128mm] (spine) at (9.5,-1.55)
+  {\textbf{The dissociation, established across four phases.}\quad
+   \textbf{P2:} per-document fractal estimates barely agree with themselves
+   ($\rho = 0.063$) --- domain-level noise, not document-level signal.\quad
+   \textbf{P3:} consistent with that, dropping all 54 fractal features costs
+   \emph{nothing} in-distribution (AUROC $0.9984$ either way) and wins on
+   7/8 cross-domain/cross-generator folds.\quad
+   \textbf{P4:} under real attacks, dropping fractal features
+   \textcolor{okGreen!60!black}{\textbf{helps}} on the two that matter most
+   (sentence-reorder, typo-noise) --- the opposite of a robustness benefit.\quad
+   \textbf{P5:} the one place fractal features show a real,
+   population-matched advantage is genuine cross-\emph{corpus} transfer to
+   RAID ($\Delta$AUROC $= 0.024$, 95\% CI excludes 0) --- a different kind
+   of shift than P3's in-corpus folds or P4's edits.};
+
+% ------------------------------------------------------------- group labels
+% x=-1.7, not -0.9: at -0.9 "Construction" (widest label) ran right up to
+% and under P0's second line ("tau in [8,320]..."), which grows past its
+% 30mm minimum width -- caught by rendering.
+\node[grouplab, anchor=west] at (-1.7,8.3) {Corpora};
+\node[grouplab, anchor=west] at (-1.7,6.0) {Construction};
+\node[grouplab, anchor=west] at (-1.7,3.15) {Validation};
+\node[grouplab, anchor=west] at (-1.7,-1.55) {Findings};
+
+\end{tikzpicture}

@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this code or findings, please cite the paper below."
+title: "Scale Without Support: Multi-Scale Fractal Features for LLM-Generated-Text Detection"
+type: software
+authors:
+  - name: "Anonymous (under double-blind review)"
+preferred-citation:
+  type: conference-paper
+  title: "Scale Without Support: Multi-Scale Fractal Features for LLM-Generated-Text Detection"
+  authors:
+    - name: "Anonymous (under double-blind review)"
+  conference:
+    name: "International Conference on Learning Representations (ICLR) 2027"
+  year: 2027

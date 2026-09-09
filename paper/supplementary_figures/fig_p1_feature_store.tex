@@ -1,0 +1,56 @@
+% ============================================================================
+%  fig_p1_feature_store.tex -- P1: three feature families, two passes, one join.
+%  The governing constraint is that gagle.zip is read exactly once: the CPU
+%  pass emits a shard manifest that the GPU pass consumes instead of re-reading.
+% ============================================================================
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[corpus, minimum width=26mm] (src) at (1.9,3.5)
+  {\texttt{gagle.zip}\\[1pt] read \textbf{exactly once}};
+
+% ---- CPU pass
+\node[phase, minimum width=36mm, text width=44mm] (cpu) at (6.3,6.10)
+  {\textbf{CPU pass}\\[2pt]
+   \textbf{Family A} --- fractal (54): $S,H$, $R^2$, CI half-widths,
+   log--log residuals at $\tau\!\in\!\{8,16,32,48,64\}$, intra-doc window
+   mean/var/min/max/drift, scorer divergence\\[2pt]
+   \textbf{Family C} --- style (14): sentence \& paragraph stats, TTR,
+   bigram repetition, transition entropy, discourse markers};
+
+% ---- GPU pass
+\node[gpuphase, minimum width=36mm, text width=44mm] (gpu) at (6.3,1.05)
+  {\textbf{GPU pass} (A100)\\[2pt]
+   \textbf{Family B} --- statistical (17): log-PPL mean/var/skew/kurtosis
+   per scorer, GLTR rank buckets, next-token entropy, cross-PPL ratio\\[2pt]
+   $+$ Family C's deferred embedding dispersion (MiniLM)};
+
+\node[phase, minimum width=26mm, text width=32mm] (gate) at (11.4,1.05)
+  {\textbf{Alignment gate}\\[1pt]
+   sweep \{text-alone, prefix+text\}\\ $\times$ offset; keep $\arg\max r$\\[1pt]
+   admit iff $r \geq 0.98$};
+
+\node[artifact, minimum width=30mm] (manifest) at (6.3,3.30)
+  {gpu\_manifest\_shards/ (720)};
+
+\node[phase, minimum width=26mm, text width=32mm] (join) at (11.4,4.30)
+  {\textbf{Join}\\[1pt]
+   hard assertion\\ \texttt{set(cpu\_ids) == set(gpu\_ids)}\\ else abort};
+
+\node[artifact, minimum width=30mm] (out) at (11.4,6.40)
+  {v1\_gagle.parquet\\[1pt] \upshape\rmfamily $223{,}834 \times 89$};
+
+\draw[flow] (src.north) |- (cpu.west);
+\draw[flow] (cpu.south) -- (manifest.north);
+\draw[flow] (manifest.south) -- (gpu.north);
+\draw[flow] (gpu) -- (gate);
+\draw[flow] (gate.north) -- (join.south);
+\draw[flow] (cpu.east) -- ++(0.6,0) |- (join.west);
+\draw[flow] (join) -- (out);
+
+% width trimmed 40->34mm: at 40mm it spanned x 0.4-4.4 and grazed the GPU
+% node's left edge (4.1) -- caught by rendering.
+\node[note, text width=34mm, anchor=north west] at (0.3,2.2)
+  {Rows failing the gate keep\\ \texttt{Alignment\_Passed=False}\\ and null
+   Family-B columns ---\\ they are \emph{recorded}, not dropped.};
+
+\end{tikzpicture}

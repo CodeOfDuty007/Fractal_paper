@@ -1,0 +1,511 @@
+% ===========================================================================
+%  all_figures_standalone.tex -- ONE self-contained file, all seven diagrams.
+%  Compile directly:  pdflatex all_figures_standalone.tex   (or tectonic/latexmk)
+%  Each figure lands on its own landscape page.
+%
+%  VERIFIED: compiles clean and every figure was inspected as a rendered
+%  image (Tectonic 0.17.0 / XeTeX, 2026-08-30). Overlap defects found that
+%  way -- and fixed -- are noted in comments in the individual fig_*.tex files.
+%
+%  To move a figure into your paper: copy ONLY the \begin{tikzpicture} ...
+%  \end{tikzpicture} block, and copy the PREAMBLE block below into YOUR
+%  preamble -- i.e. ABOVE \begin{document}. Putting \usepackage or \tikzset
+%  after \begin{document} gives "LaTeX Error: Can be used only in preamble"
+%  and a cascade of knock-on errors.
+% ===========================================================================
+\documentclass[11pt]{article}
+\usepackage[a3paper,landscape,margin=12mm]{geometry}
+\usepackage{graphicx}
+\usepackage{adjustbox} % max width AND max height, aspect-ratio-preserving --
+  % \resizebox{\textwidth}{!}{} alone only constrains width, so a figure
+  % that grows TALLER than it is wide (e.g. after adding a node) silently
+  % overflows off the bottom of the page instead of shrinking -- caught by
+  % rendering (P5's dissociation panel + finding banner were clipped off
+  % the page entirely on 2026-08-30).
+\pagestyle{empty}
+
+% ------------------------------- PREAMBLE (copy this into your paper) ------
+
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric,
+                decorations.pathreplacing,patterns}
+
+\definecolor{okBlue}   {HTML}{0072B2}  % primary dataflow / P3
+\definecolor{okVermil} {HTML}{D55E00}  % negative result / failure / P4 attacks
+\definecolor{okGreen}  {HTML}{009E73}  % validated artifact / pass
+\definecolor{okOrange} {HTML}{E69F00}  % compute-heavy stage
+\definecolor{okSky}    {HTML}{56B4E9}  % data / corpus
+\definecolor{okPurple} {HTML}{CC79A7}  % evaluation / transfer
+\definecolor{okYellow} {HTML}{F0E442}  % highlight band (use sparingly)
+\definecolor{okBlack}  {HTML}{000000}
+
+\definecolor{inkGrey}  {HTML}{4D4D4D}  % body text / edges
+\definecolor{softGrey} {HTML}{F2F2F2}  % container fills
+
+\tikzset{
+  % --- generic ---
+  fignode/.style      = {rounded corners=2pt, draw, line width=0.6pt,
+                         align=center, inner sep=4pt, font=\scriptsize},
+  % --- semantic roles ---
+  phase/.style        = {fignode, fill=okBlue!10,   draw=okBlue,
+                         text=okBlack, minimum width=26mm, minimum height=9mm},
+  gpuphase/.style     = {fignode, fill=okOrange!18, draw=okOrange!90!black},
+  corpus/.style       = {fignode, fill=okSky!18,    draw=okSky!90!black},
+  artifact/.style     = {fignode, fill=okGreen!12,  draw=okGreen!90!black,
+                         font=\scriptsize\ttfamily},
+  finding/.style      = {fignode, fill=okVermil!12, draw=okVermil,
+                         text=okBlack},
+  failnode/.style     = {fignode, fill=okVermil!18, draw=okVermil,
+                         line width=0.9pt},
+  evalnode/.style     = {fignode, fill=okPurple!14, draw=okPurple!90!black},
+  note/.style         = {align=left, font=\scriptsize\itshape, text=inkGrey,
+                         inner sep=2pt},
+  grouplab/.style     = {font=\scriptsize\bfseries, text=inkGrey},
+  % --- containers ---
+  container/.style    = {rounded corners=3pt, draw=inkGrey!35, dashed,
+                         line width=0.5pt, fill=softGrey, inner sep=6pt},
+  % --- edges ---
+  flow/.style         = {-{Stealth[length=4pt,width=3pt]}, draw=inkGrey,
+                         line width=0.7pt},
+  weakflow/.style     = {-{Stealth[length=4pt,width=3pt]}, draw=inkGrey!55,
+                         line width=0.6pt, dashed},
+  deadflow/.style     = {-{Stealth[length=4pt,width=3pt]}, draw=okVermil,
+                         line width=0.8pt, dash pattern=on 2pt off 1.6pt},
+  edgelab/.style      = {font=\scriptsize, text=inkGrey, inner sep=1.5pt,
+                         fill=white, rounded corners=1pt},
+}
+% ------------------------------- END PREAMBLE ------------------------------
+
+\newcommand{\figpage}[2]{%
+  \begin{center}\Large\bfseries #1\end{center}\vspace{2mm}
+  \begin{center}\adjustbox{max width=\textwidth,max height=0.84\textheight}{#2}\end{center}\clearpage}
+
+\begin{document}
+\figpage{P0--P5: end-to-end pipeline}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+% ------------------------------------------------------------ input corpora
+\node[corpus, minimum width=28mm] (gagle) at (2.4,8.3)
+  {\textbf{GAGLE}\\[1pt] 223{,}834 docs\\ 5 domains $\times$ 8 prompt types};
+
+\node[corpus, minimum width=28mm] (raid) at (17.7,1.9)
+  {\textbf{RAID}\\[1pt] 68{,}212 docs\\ 11 generators, 8 domains};
+
+% --------------------------------------------------------------- main spine
+\node[phase, minimum width=30mm] (p0) at (2.4,6.0)
+  {\textbf{P0}~~Corpus baseline\\[1pt]
+   $\tau\!\in\![8,320]$, $\varepsilon\!=\!10^{-2}$\\
+   drop 64 / clip 464 / min 320};
+
+\node[phase, minimum width=32mm] (p1) at (7.6,6.0)
+  {\textbf{P1}~~Feature store\\[1pt]
+   Family A (54) $+$ B (17)\\ $+$ C (14) $=$ 85 features};
+
+\node[phase, minimum width=32mm] (p3) at (12.6,6.0)
+  {\textbf{P3}~~Binary detection\\[1pt]
+   5 configs $\times$ 8 folds\\ $\times$ 12 arms $=$ 304 cells};
+
+\node[evalnode, minimum width=28mm] (p4) at (17.7,7.9)
+  {\textbf{P4}~~Robustness\\[1pt]
+   6 attacks $\times$ 5 detectors\\ 39{,}810 edited docs};
+
+\node[evalnode, minimum width=28mm] (p5) at (17.7,4.7)
+  {\textbf{P5}~~Transfer $+$ multiclass\\[1pt]
+   T2 / T3 / GAGLE$\rightarrow$RAID\\ 11-class generator ID};
+
+% ------------------------------------------------------- P2: one node, not a spine
+\node[phase, minimum width=34mm, text width=40mm] (p2) at (7.6,3.15)
+  {\textbf{P2}~~Split-half reliability\\[1pt]
+   pre-registered bar $\rho\!\geq\!0.60$: \textbf{0/20 pass}\\
+   best feature $\rho = 0.063$};
+
+% ------------------------------------------------------------------- edges
+\draw[flow] (gagle) -- (p0);
+\draw[flow] (p0) -- node[edgelab, pos=0.5, above=1pt]{single pass} (p1);
+\draw[flow] (p1) -- node[edgelab, pos=0.5, above=1pt]{85 feat.} (p3);
+% route the fan-out on a fixed vertical at x=15.2: it must clear P3's
+% east edge (~14.2) AND P4/P5's west edges (~15.7). An earlier revision
+% used ++(0.55,0), putting the connector INSIDE P4/P5 so the arrowheads
+% clipped their first characters -- caught by rendering at 150 dpi.
+\draw[flow] (p3.east) -- (15.2,6.0) |- (p4.west);
+\draw[flow] (p3.east) -- (15.2,6.0) |- (p5.west);
+\draw[flow] (raid) -- (p5);
+
+\draw[flow] (p1.south) -- (p2.north);
+\draw[flow] (p2.south) -- ++(0,-0.75)
+  node[edgelab, pos=1, below, text width=44mm, align=center]
+  {feeds P3's fractal family regardless of gate outcome ---\\
+   see fig\_p2\_reliability.tex for the whitelist detail};
+
+% --------------------------------------------- the project's dissociation (finding)
+\node[finding, minimum width=112mm, text width=128mm] (spine) at (9.5,-1.55)
+  {\textbf{The dissociation, established across four phases.}\quad
+   \textbf{P2:} per-document fractal estimates barely agree with themselves
+   ($\rho = 0.063$) --- domain-level noise, not document-level signal.\quad
+   \textbf{P3:} consistent with that, dropping all 54 fractal features costs
+   \emph{nothing} in-distribution (AUROC $0.9984$ either way) and wins on
+   7/8 cross-domain/cross-generator folds.\quad
+   \textbf{P4:} under real attacks, dropping fractal features
+   \textcolor{okGreen!60!black}{\textbf{helps}} on the two that matter most
+   (sentence-reorder, typo-noise) --- the opposite of a robustness benefit.\quad
+   \textbf{P5:} the one place fractal features show a real,
+   population-matched advantage is genuine cross-\emph{corpus} transfer to
+   RAID ($\Delta$AUROC $= 0.024$, 95\% CI excludes 0) --- a different kind
+   of shift than P3's in-corpus folds or P4's edits.};
+
+% ------------------------------------------------------------- group labels
+% x=-1.7, not -0.9: at -0.9 "Construction" (widest label) ran right up to
+% and under P0's second line ("tau in [8,320]..."), which grows past its
+% 30mm minimum width -- caught by rendering.
+\node[grouplab, anchor=west] at (-1.7,8.3) {Corpora};
+\node[grouplab, anchor=west] at (-1.7,6.0) {Construction};
+\node[grouplab, anchor=west] at (-1.7,3.15) {Validation};
+\node[grouplab, anchor=west] at (-1.7,-1.55) {Findings};
+
+\end{tikzpicture}
+}
+
+\figpage{P0: corpus baseline}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[corpus, minimum width=30mm] (zip) at (2.0,4.6)
+  {\texttt{gagle.zip} (10.6\,GB)\\[1pt]
+   720 members $=$\\ model $\times$ temp $\times$ domain $\times$ prompt};
+
+\node[phase, minimum width=32mm] (slice) at (2.0,2.6)
+  {\textbf{Token-score slicing}\\[1pt]
+   drop first $64$ (warm-up)\\ clip to $464$\\ require $\geq 320$ tokens};
+
+\node[phase, minimum width=32mm, text width=38mm] (traj) at (7.0,2.6)
+  {\textbf{Surprisal trajectory}\\[2pt]
+   $z_t=(s_t-\mu)/\sigma$,\quad
+   $X_n=\sum_{t\leq n} z_t$\\[2pt]
+   one 1-D walk per document};
+
+\node[phase, minimum width=34mm, text width=42mm] (est) at (12.2,4.0)
+  {\textbf{Hurst $H$} --- rescaled range\\[1pt]
+   $R(n)/S(n)\sim n^{H}$};
+
+\node[phase, minimum width=34mm, text width=42mm] (est2) at (12.2,1.9)
+  {\textbf{H\"older $S$} --- displacement prob.\\[1pt]
+   $p_{\varepsilon}(\tau)\sim\tau^{-S}$,\ \ $\varepsilon=10^{-2}$};
+
+\node[artifact, minimum width=34mm] (out) at (7.0,0.35)
+  {p0\_corpus\_level\_SH.json};
+
+\node[note, text width=54mm, anchor=north west] (scale) at (4.6,6.0)
+  {Scale sweep (both estimators):\\
+   $\tau \in \{8,16,32,48,64,96,128,160,192,256,320\}$;\\
+   log--log linear fit; human rows de-duplicated to\\
+   $5{,}000$ (1{,}000 per domain).};
+
+\draw[flow] (zip) -- (slice);
+\draw[flow] (slice) -- (traj);
+\draw[flow] (traj.east) -- ++(0.4,0) |- (est.west);
+\draw[flow] (traj.east) -- ++(0.4,0) |- (est2.west);
+\draw[flow] (est.south east) -- ++(0.6,0) |- (out.east);
+\draw[flow] (est2.south) -- ++(0,-0.8) -| (out.east);
+
+\node[finding, minimum width=40mm, text width=48mm] at (2.2,0.35)
+  {\textbf{Exit gate:} corpus-level trends reproduce\\ the parent
+   result (LLM text: higher $S$, higher $H$).};
+
+\end{tikzpicture}
+}
+
+\figpage{P1: feature store}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[corpus, minimum width=26mm] (src) at (1.9,3.5)
+  {\texttt{gagle.zip}\\[1pt] read \textbf{exactly once}};
+
+\node[phase, minimum width=36mm, text width=44mm] (cpu) at (6.3,6.10)
+  {\textbf{CPU pass}\\[2pt]
+   \textbf{Family A} --- fractal (54): $S,H$, $R^2$, CI half-widths,
+   log--log residuals at $\tau\!\in\!\{8,16,32,48,64\}$, intra-doc window
+   mean/var/min/max/drift, scorer divergence\\[2pt]
+   \textbf{Family C} --- style (14): sentence \& paragraph stats, TTR,
+   bigram repetition, transition entropy, discourse markers};
+
+\node[gpuphase, minimum width=36mm, text width=44mm] (gpu) at (6.3,1.05)
+  {\textbf{GPU pass} (A100)\\[2pt]
+   \textbf{Family B} --- statistical (17): log-PPL mean/var/skew/kurtosis
+   per scorer, GLTR rank buckets, next-token entropy, cross-PPL ratio\\[2pt]
+   $+$ Family C's deferred embedding dispersion (MiniLM)};
+
+\node[phase, minimum width=26mm, text width=32mm] (gate) at (11.4,1.05)
+  {\textbf{Alignment gate}\\[1pt]
+   sweep \{text-alone, prefix+text\}\\ $\times$ offset; keep $\arg\max r$\\[1pt]
+   admit iff $r \geq 0.98$};
+
+\node[artifact, minimum width=30mm] (manifest) at (6.3,3.30)
+  {gpu\_manifest\_shards/ (720)};
+
+\node[phase, minimum width=26mm, text width=32mm] (join) at (11.4,4.30)
+  {\textbf{Join}\\[1pt]
+   hard assertion\\ \texttt{set(cpu\_ids) == set(gpu\_ids)}\\ else abort};
+
+\node[artifact, minimum width=30mm] (out) at (11.4,6.40)
+  {v1\_gagle.parquet\\[1pt] \upshape\rmfamily $223{,}834 \times 89$};
+
+\draw[flow] (src.north) |- (cpu.west);
+\draw[flow] (cpu.south) -- (manifest.north);
+\draw[flow] (manifest.south) -- (gpu.north);
+\draw[flow] (gpu) -- (gate);
+\draw[flow] (gate.north) -- (join.south);
+\draw[flow] (cpu.east) -- ++(0.6,0) |- (join.west);
+\draw[flow] (join) -- (out);
+
+\node[note, text width=34mm, anchor=north west] at (0.3,2.2)
+  {Rows failing the gate keep\\ \texttt{Alignment\_Passed=False}\\ and null
+   Family-B columns ---\\ they are \emph{recorded}, not dropped.};
+
+\end{tikzpicture}
+}
+
+\figpage{P2: reliability gate}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[artifact, minimum width=30mm] (src) at (2.2,5.3)
+  {v1\_gagle.parquet};
+
+\node[phase, minimum width=32mm, text width=40mm] (split) at (2.2,3.3)
+  {\textbf{Interleaved split-half}\\[2pt]
+   odd-index tokens $\rightarrow$ half A\\
+   even-index tokens $\rightarrow$ half B\\[2pt]
+   re-fit $S,H$ independently on each};
+
+\node[phase, minimum width=30mm, text width=38mm] (rho) at (7.4,3.3)
+  {\textbf{Spearman--Brown}\\[2pt]
+   $\rho = \dfrac{2r_{AB}}{1+r_{AB}}$\\[3pt]
+   pre-registered bar: $\rho \geq 0.60$};
+
+\node[failnode, minimum width=44mm, text width=54mm] (res) at (12.6,4.2)
+  {\textbf{Result: 0 / 20 features pass}\\[3pt]
+   per-doc $S$ (\texttt{gemma\_S}): $\rho = 0.063$\\
+   per-doc $H$ (best): $\rho \approx 0.576$\\
+   stability-profile fallback (best): $\rho = 0.431$};
+
+\node[artifact, minimum width=36mm] (wl) at (7.4,1.35)
+  {fractal\_feature\_whitelist.json\\[1pt]
+   \upshape\rmfamily \textbf{whitelist: [\,]}\quad rejected: 20};
+
+\node[finding, minimum width=52mm, text width=62mm] (mech) at (7.0,-0.75)
+  {\textbf{Mechanism.} Two halves of the \emph{same} document agree barely
+   better than two \emph{different} documents. Per-document $S$ is, to first
+   order, noise with a domain-dependent mean --- which helps in-domain (the
+   mean shifts by domain and label) and hurts out-of-domain (no stable
+   per-document signal exists to transfer).};
+
+\draw[flow] (src) -- (split);
+\draw[flow] (split) -- (rho);
+\draw[flow] (rho) -- (res);
+\draw[flow] (rho.south) -- (wl.north);
+\draw[flow] (wl.south) -- (mech.north);
+
+\draw[deadflow] (wl.east) -- ++(4.4,0)
+  node[edgelab, pos=0.62, above=1pt, text=okVermil]{no consumer in codebase};
+
+\node[note, text width=32mm, anchor=north west] at (0.1,2.15)
+  {The pre-registered fallback (windowed\\ mean/var/drift) also fails, so the
+   plan's\\ own escape hatch is unavailable. The\\ pivot is therefore to
+   \emph{report} the failure\\ as a primary finding, not to re-tune the bar.};
+
+\end{tikzpicture}
+}
+
+\figpage{P3: binary detection}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[phase, minimum width=30mm, text width=36mm] (splits) at (2.1,5.6)
+  {\textbf{Frozen splits} (\texttt{splits\_v1.json})\\[2pt]
+   group-disjoint by seed article\\[1pt]
+   random $+$ 5$\times$LODO $+$ 2$\times$LOGO\\ $=$ \textbf{8 folds}};
+
+\node[phase, minimum width=30mm, text width=36mm] (cfg) at (2.1,2.9)
+  {\textbf{5 confound configs}\\[2pt]
+   full \textbar\ no-short-window\\ no-NaN-signal \textbar\ complete-case\\ clean-both};
+
+\node[phase, minimum width=30mm, text width=36mm] (pipe) at (2.1,0.5)
+  {\textbf{D-11 pipeline} (order is load-bearing)\\[2pt]
+   class weight $\rightarrow$ calibrate on val\\ at true prevalence $\rightarrow$ report};
+
+\node[grouplab] at (9.4,7.0) {Ablation arms (config = full, random/random, LightGBM)};
+
+\node[phase, fill=okBlue!6, inner sep=6pt] (grid) at (9.4,4.35)
+  {\begin{tabular}{@{}l r r r@{}}
+     \textbf{arm} & \textbf{\#feat} & \textbf{AUROC} & \textbf{TPR@1\%}\\[2pt]
+     \texttt{fractal\_only}       & 54 & \textcolor{okVermil}{\textbf{0.6629}} & 0.0641\\
+     \texttt{stat\_only}          & 17 & 0.9795 & 0.7209\\
+     \texttt{style\_only}         & 14 & 0.9919 & 0.7964\\
+     \texttt{fractal+stat}        & 71 & 0.9785 & 0.6836\\
+     \texttt{fractal+style}       & 68 & 0.9917 & 0.8171\\
+     \texttt{all}                 & 85 & 0.9984 & 0.9587\\
+     \texttt{all\_minus\_fractal} & 31 & \textcolor{okGreen!60!black}{\textbf{0.9984}}
+                                        & \textcolor{okGreen!60!black}{\textbf{0.9612}}\\
+   \end{tabular}};
+
+\node[phase, fill=softGrey, inner sep=6pt] (diag) at (9.4,1.55)
+  {\begin{tabular}{@{}l r r@{}}
+     \multicolumn{3}{@{}l}{\textbf{Diagnostic arms + negative control}}\\
+     \multicolumn{3}{@{}l}{\scriptsize each has a stated failure condition}\\[3pt]
+     \texttt{length\_only}       & 2  & 0.8635\\
+     \texttt{provenance\_only}   & 6  & 0.5655\\
+     \texttt{shortwindow\_only}  & 2  & 0.5290\\
+     \texttt{missingness\_only}  & 85 & 0.5169\\
+     \texttt{label\_shuffle} \scriptsize(harness control) & --- & $\approx 0.5$\\
+   \end{tabular}};
+
+\node[finding, minimum width=64mm, text width=78mm] (fnd) at (9.4,-1.15)
+  {\textbf{Headline.} Deleting all 54 fractal features leaves AUROC unchanged
+   at $0.9984$ and \emph{improves} TPR@1\%FPR ($0.9587 \rightarrow 0.9612$).
+   A 31-feature model matches an 85-feature one.};
+
+\draw[flow] (splits.east) -- ++(0.5,0) |- (grid.west);
+\draw[flow] (cfg.east) -- ++(0.5,0) |- (grid.west);
+\draw[flow] (pipe.east) -- ++(0.5,0) |- (diag.west);
+\draw[flow] (grid.south) -- (diag.north);
+\draw[flow] (diag.south) -- (fnd.north);
+
+\node[note, text width=34mm, anchor=north west] at (0.3,-0.9)
+  {$5 \times 8 \times 12$ arm/learner\\ combinations $=$ \textbf{304 cells},\\
+   each with 2{,}000-fold\\ stratified bootstrap CIs.};
+
+\end{tikzpicture}
+}
+
+\figpage{P4: adversarial robustness}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[corpus, minimum width=28mm, text width=34mm] (pop) at (2.0,5.9)
+  {Stratified GAGLE\\ \texttt{llm\_text} subset\\[1pt] 39{,}810 (doc, variant) pairs};
+
+\node[gpuphase, minimum width=30mm, text width=38mm] (att) at (2.0,3.5)
+  {\textbf{Attack cascade} (A100)\\[2pt]
+   paraphrase-light \textbar\ -heavy\\ style-transfer \textbar\ sentence-reorder\\
+   typo-noise \textbar\ summarise-then-expand};
+
+\node[phase, minimum width=30mm, text width=38mm] (guard) at (2.0,1.2)
+  {\textbf{Semantic-preservation guard}\\[2pt]
+   embedding cosine $+$ NLI;\\ discard content-destroying edits\\
+   (\texttt{human\_revision} excluded)};
+
+\node[gpuphase, minimum width=26mm, text width=32mm] (resc) at (6.9,1.2)
+  {\textbf{Re-score} both scorers\\ (Gemma-2B, Mistral-7B)\\ $\rightarrow$ token log-probs};
+
+\node[phase, minimum width=26mm, text width=32mm] (fam) at (6.9,3.5)
+  {Recompute Families A--C\\[2pt]
+   $+$ \textbf{Family D}: $\Delta H$, $\Delta S$,\\ $\Delta \log\mathrm{PPL}$};
+
+\node[artifact, minimum width=28mm] (v2) at (6.9,5.9)
+  {v2\_edited.parquet\\[1pt] \upshape\rmfamily $39{,}810 \times 94$};
+
+\node[evalnode, inner sep=6pt] (bat) at (13.4,4.4)
+  {\begin{tabular}{@{}l r@{}}
+     \multicolumn{2}{@{}l}{\textbf{Robustness battery} --- 5 detectors $\times$ 6 attacks}\\
+     \multicolumn{2}{@{}l}{\scriptsize recall@1\%FPR, clean $\rightarrow$ worst attack}\\[3pt]
+     \texttt{roberta}           & $0.9989 \rightarrow 0.9959$\\
+     \texttt{binoculars}        & $0.8728 \rightarrow 0.7456$\\
+     \texttt{tabular} \scriptsize(85-feat) & $0.9559 \rightarrow \textcolor{okVermil}{\mathbf{0.2670}}$\\
+     \texttt{fastdetectgpt}     & $0.5104 \rightarrow 0.1967$\\
+     \texttt{perplexity\_gemma} & $0.0935$\ \emph{\scriptsize(below floor)}\\
+   \end{tabular}};
+
+\node[finding, minimum width=58mm, text width=72mm] (pat) at (13.4,0.9)
+  {\textbf{Three distinct failure modes.}
+   (i) \texttt{tabular} collapses \emph{specifically} on sentence-reorder ---
+   an order-sensitive detector.
+   (ii) \texttt{fastdetectgpt} recall \emph{rises} under paraphrase: a
+   same-family artifact (Gemma-paraphrased text is maximally predictable to
+   the Gemma scorer); it reverses under a non-lineage attacker.
+   (iii) \texttt{roberta} is near-unbreakable across all six.};
+
+\draw[flow] (pop) -- (att);
+\draw[flow] (att) -- (guard);
+\draw[flow] (guard) -- (resc);
+\draw[flow] (resc) -- (fam);
+\draw[flow] (fam) -- (v2);
+\draw[flow] (v2.east) -- ++(0.6,0) |- (bat.west);
+\draw[flow] (bat.south) -- (pat.north);
+
+\end{tikzpicture}
+}
+
+\figpage{P5: transfer + multiclass}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[artifact, minimum width=26mm] (v1) at (2.0,6.3)
+  {v1\_gagle.parquet};
+\node[corpus, minimum width=26mm, text width=32mm] (raid) at (2.0,1.4)
+  {\textbf{RAID}\\ 11 generators, 8 domains\\ $+$ 9 adversarial attacks};
+
+\node[gpuphase, minimum width=26mm, text width=32mm] (rescore) at (6.4,1.4)
+  {Ingest $+$ re-score\\ (Gemma-2B, Mistral-7B)\\ $\rightarrow$ Families A--C};
+
+\node[artifact, minimum width=26mm] (v3) at (10.4,1.4)
+  {v3\_raid.parquet\\[1pt] \upshape\rmfamily $68{,}212 \times 90$};
+
+% ---- in-corpus multiclass tasks
+\node[evalnode, minimum width=52mm, text width=62mm] (t2) at (7.6,6.3)
+  {\textbf{T2 --- generator family, GAGLE} (2-class, complete-case, $n=14{,}805$)\\[2pt]
+   AUROC $0.9943$ {\scriptsize[0.9936, 0.9951]}\quad
+   TPR@1\% $0.9016$};
+
+\node[evalnode, minimum width=52mm, text width=62mm] (t3) at (7.6,4.15)
+  {\textbf{T3 --- prompt type, GAGLE} (8-class, macro-F1, $n=14{,}805$)\\[2pt]
+   all 85 features: $0.5816$ {\scriptsize[0.5747, 0.5885]}\\
+   \texttt{fractal\_only} (54): \textcolor{okVermil}{$\mathbf{0.1981}$}
+   {\scriptsize[0.1919, 0.2043]}\ \ (chance $\approx 0.125$)};
+
+% ---- transfer
+\node[evalnode, minimum width=52mm, text width=62mm] (t4) at (7.6,-1.10)
+  {\textbf{Task 4 --- GAGLE $\rightarrow$ RAID transfer} (no retraining;
+   threshold re-derived on RAID's own human population)\\[2pt]
+   in-distribution GAGLE: AUROC $0.9984$, TPR@1\% $0.9587$\\
+   transferred to RAID: AUROC \textcolor{okVermil}{$\mathbf{0.8032}$}
+   {\scriptsize[0.7975, 0.8089]}, TPR@1\% $0.2277$};
+
+\node[evalnode, minimum width=52mm, text width=62mm] (dissoc) at (7.6,-3.85)
+  {\textbf{Population-matched fractal ablation on RAID}
+   (identical 22{,}041-row complete-case set, both models)\\[2pt]
+   \texttt{all} (85 feat): AUROC $0.8032$ {\scriptsize[0.7975,0.8089]}\quad
+   \texttt{all\_minus\_fractal} (31 feat): AUROC $0.7792$
+   {\scriptsize[0.7730,0.7851]}\\
+   paired bootstrap $\Delta$AUROC $= \textcolor{okGreen!60!black}{\mathbf{0.0240}}$,
+   95\% CI $[0.0222,0.0259]$ --- \textbf{excludes zero}};
+
+\node[evalnode, minimum width=30mm, text width=36mm] (t6) at (13.0,3.2)
+  {\textbf{Task 6 --- RAID}\\ 11-class generator ID\\ macro-F1 $0.5441$
+   {\scriptsize[0.5164, 0.5684]}\\ ($n=1{,}572$, chance $\approx 0.09$)};
+
+\draw[flow] (v1.east) -- ++(0.5,0) |- (t2.west);
+\draw[flow] (v1.east) -- ++(0.5,0) |- (t3.west);
+\draw[flow] (raid) -- (rescore);
+\draw[flow] (rescore) -- (v3);
+% route v3 -> t4 down a clear vertical at x=12.0. The previous
+% "(v3.south) -- ++(0,-0.9) -| (t4.east)" dropped a vertical INSIDE t4's box
+% and through the External-validity banner -- caught by rendering.
+\draw[flow] (v3.east) -- (12.0,1.4) -- (12.0,-1.10) -- (t4.east);
+\draw[flow] (v1.west) -- ++(-1.3,0) |- (t4.west);
+\draw[flow] (v3.north) -- (t6.south west);
+\draw[flow] (t4.south) -- (dissoc.north);
+
+% moved to a full-width banner BELOW everything, clear of the new dissoc node.
+% dissoc's 5-line body at text width=62mm is taller than it looks by eye --
+% at y=-6.35 the banner's top edge overlapped dissoc's last line -- caught
+% by rendering; -7.85 clears it with margin.
+\node[finding, minimum width=96mm, text width=104mm] at (7.4,-7.85)
+  {\textbf{External validity is a dissociation, not a uniform drop.}
+   AUROC falls $0.9984 \rightarrow 0.8032$ crossing corpora (the same
+   direction P2/P3 predict), yet on an identical population the fractal
+   family is the \emph{one} thing giving the full model a real edge over
+   the fractal-free one here ($+0.024$ AUROC) --- the opposite of its role
+   under P3's in-corpus folds and P4's attacks (fig\_pipeline\_overview.tex).
+   \texttt{fractal\_only} still sits near the 8-class chance floor on T3:
+   it cannot do this alone, only in combination.};
+
+\end{tikzpicture}
+}
+
+\end{document}

@@ -1,0 +1,30 @@
+[load] 100/721 shards, 18,788 docs, 3s
+[load] 200/721 shards, 36,649 docs, 6s
+[load] 300/721 shards, 83,116 docs, 13s
+[load] 400/721 shards, 147,376 docs, 23s
+[load] 500/721 shards, 198,789 docs, 31s
+[load] 600/721 shards, 208,187 docs, 33s
+[load] 700/721 shards, 217,018 docs, 34s
+[load] done: 721 shards, 223,834 docs, 35s
+[t4] 20/112 chunks, 79,661 rows, 85s
+[t4] 40/112 chunks, 159,258 rows, 119s
+[t4] 60/112 chunks, 238,873 rows, 166s
+[t4] 80/112 chunks, 318,554 rows, 200s
+[t4] 100/112 chunks, 398,230 rows, 246s
+[t4] feature computation done: 445,738 rows in 264s
+[t4] wrote long-format parquet, 445,738 rows
+[t4] gemma: Whittle saturation (either half within 0.02 of bound [0.010000000000000009,1.99]): 23/221904 = 0.0001
+[t4] gemma_RS_H (all pairs): n=221,904 rho_pooled=0.5763 rho_within=0.5522  passes>=0.60=False
+[t4] gemma_DFA_H (all pairs): n=221,904 rho_pooled=0.6289 rho_within=0.6014  passes>=0.60=True
+[t4] gemma_Whittle_H (all pairs): n=221,904 rho_pooled=0.6773 rho_within=0.6471  passes>=0.60=True
+[t4] gemma_Whittle_H EXCLUDING saturated pairs: n=221,881 rho_pooled=0.6774 rho_within=0.6472  passes>=0.60=True
+[t4] gemma cross-estimator corr (doc-level mean-of-halves): RS~DFA=0.8685  RS~Whittle=0.7592  DFA~Whittle=0.8077
+[t4] mistral: Whittle saturation (either half within 0.02 of bound [0.010000000000000009,1.99]): 17/223834 = 0.0001
+[t4] mistral_RS_H (all pairs): n=223,834 rho_pooled=0.5465 rho_within=0.5199  passes>=0.60=False
+[t4] mistral_DFA_H (all pairs): n=223,834 rho_pooled=0.5994 rho_within=0.5658  passes>=0.60=False
+[t4] mistral_Whittle_H (all pairs): n=223,834 rho_pooled=0.6415 rho_within=0.6046  passes>=0.60=True
+[t4] mistral_Whittle_H EXCLUDING saturated pairs: n=223,817 rho_pooled=0.6415 rho_within=0.6046  passes>=0.60=True
+[t4] mistral cross-estimator corr (doc-level mean-of-halves): RS~DFA=0.8644  RS~Whittle=0.7506  DFA~Whittle=0.8030
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t4_alt_estimators_reliability.json
+[t4] TOTAL 398s

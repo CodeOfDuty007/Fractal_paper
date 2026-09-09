@@ -1,0 +1,66 @@
+
+================================================================================
+[driver] starting construction=block_16
+================================================================================
+[run] construction=block_16 workers=96 window_scale=None skip_windowed=False
+[load] 100/721 shards, 18,788 docs, 3s
+[load] 200/721 shards, 36,649 docs, 6s
+[load] 300/721 shards, 83,116 docs, 13s
+[load] 400/721 shards, 147,376 docs, 23s
+[load] 500/721 shards, 198,789 docs, 31s
+[load] 600/721 shards, 208,187 docs, 33s
+[load] 700/721 shards, 217,018 docs, 34s
+[load] done: 721 shards, 223,834 docs, 35s
+[run]   20/112 chunks, 79,669 rows so far, 391s
+[run]   40/112 chunks, 159,388 rows so far, 427s
+[run]   60/112 chunks, 238,945 rows so far, 485s
+[run]   80/112 chunks, 318,564 rows so far, 508s
+[run]   100/112 chunks, 398,234 rows so far, 524s
+[run] feature computation done: 445,738 (doc,scorer) rows in 535s
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_block_16_stats.json
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_block_16_features.parquet (3,641,290 rows)
+[run] TOTAL 544s
+
+================================================================================
+[driver] starting construction=block_32
+================================================================================
+[run] construction=block_32 workers=96 window_scale=None skip_windowed=False
+[run]   20/112 chunks, 79,661 rows so far, 352s
+[run]   40/112 chunks, 159,272 rows so far, 426s
+[run]   60/112 chunks, 238,887 rows so far, 475s
+[run]   80/112 chunks, 318,577 rows so far, 494s
+[run]   100/112 chunks, 398,230 rows so far, 504s
+[run] feature computation done: 445,738 (doc,scorer) rows in 516s
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_block_32_stats.json
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_block_32_features.parquet (3,640,918 rows)
+[run] TOTAL 524s
+
+================================================================================
+[driver] starting construction=block_bootstrap
+================================================================================
+[run] construction=block_bootstrap workers=96 window_scale=None skip_windowed=False
+[run]   20/112 chunks, 79,660 rows so far, 671s
+[run]   40/112 chunks, 159,391 rows so far, 837s
+[run]   60/112 chunks, 238,981 rows so far, 917s
+[run]   80/112 chunks, 318,606 rows so far, 945s
+[run]   100/112 chunks, 398,229 rows so far, 953s
+[run] feature computation done: 445,737 (doc,scorer) rows in 966s
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_block_bootstrap_stats.json
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_block_bootstrap_features.parquet (4,018,175 rows)
+[run] TOTAL 976s
+
+================================================================================
+[driver] starting construction=matched_sweep
+================================================================================
+[run] construction=matched_sweep workers=96 window_scale=[8, 16, 32, 48, 64, 96] skip_windowed=False
+[run]   20/112 chunks, 79,673 rows so far, 365s
+[run]   40/112 chunks, 159,324 rows so far, 507s
+[run]   60/112 chunks, 238,962 rows so far, 523s
+[run]   80/112 chunks, 318,566 rows so far, 533s
+[run]   100/112 chunks, 397,904 rows so far, 546s
+[run] feature computation done: 445,738 (doc,scorer) rows in 559s
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_matched_sweep_stats.json
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_matched_sweep_features.parquet (3,680,670 rows)
+[run] TOTAL 568s
+
+[driver] ALL DETERMINISTIC T1 CONSTRUCTIONS DONE

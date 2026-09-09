@@ -1,0 +1,87 @@
+% =============================================================================
+%  fig_dissociation.tex -- the paper's thesis in one picture.
+%  One estimand, two supports, four consequences. Every number carries a
+%  source in the main text; none is illustrative.
+% =============================================================================
+\begin{tikzpicture}[x=1cm,y=1cm,font=\scriptsize]
+
+% ------------------------------------------------------------- the estimand
+\node[phase, minimum width=48mm, text width=56mm] (est) at (8.0,7.1)
+  {\textbf{One estimand}\\[2pt]
+   $\mathbb{E}\big[R(n)/S(n)\big]\sim n^{H}$,\qquad
+   $p_{\varepsilon}(\tau)\sim\tau^{-S}$\\[2pt]
+   fitted by log--log OLS over $\tau\in\{8,\dots,320\}$, $\varepsilon=10^{-2}$};
+
+% --------------------------------------------------------------- left: pooled
+\node[passnode, minimum width=54mm, text width=62mm] (pool) at (3.1,3.6)
+  {\textbf{Support: ${\approx}10^{6}$ tokens} \;(pooled cell)\\[3pt]
+   $20/20$ (domain, generator, exponent) cells separate,\\
+   \textbf{non-overlapping 95\% CIs}\\[2pt]
+   smallest margin $0.013$ ($\approx0.7\times$ the human interval half-width)\\
+   a second, differently-biased estimator agrees $10/10$\\[4pt]
+   \emph{Survives a $2.34\times$ human-population de-duplication}\\
+   \emph{and an estimator determinism fix; interval widening}\\
+   \emph{tracks $\sqrt{N/n}$ in $20/20$ cells.}};
+
+% ------------------------------------------------------------ right: per-doc
+\node[failnode, minimum width=54mm, text width=62mm] (doc) at (12.9,3.6)
+  {\textbf{Support: $400$ tokens} \;(one document)\\[3pt]
+   interleaved split-half, Spearman--Brown $\rho=2r/(1+r)$;\\
+   bar $\rho\ge0.60$, \emph{pre-registered}\\[2pt]
+   per-doc $\widehat S$ (\texttt{gemma\_S}): $\rho=\mathbf{0.063}$\qquad
+   $\widehat H$ (best): $0.576$\\
+   stability-profile fallback (best): $0.431$\\
+   \textbf{0 of 20 candidates pass}\\[4pt]
+   \emph{Same documents, same estimator code. Both scorers}\\
+   \emph{agree ($\widehat S$: $0.063$ / $0.050$), so this is not one}\\
+   \emph{architecture's decoder.}};
+
+\draw[flow] (est.west) -- ++(-1.9,0) |- (pool.north);
+\draw[flow] (est.east) -- ++( 1.9,0) |- (doc.north);
+
+% -------------------------------------------------------------- the mechanism
+\node[finding, minimum width=126mm, text width=140mm] (mech) at (8.0,0.0)
+  {\textbf{Reconciliation.}\quad
+   $\widehat H_d \;=\; \underbrace{\mu(c_d,g_d)}_{\text{population}}
+                 \;+\; \underbrace{\delta_d}_{\text{document}}
+                 \;+\; \underbrace{\eta_d}_{\text{estimator error}}$\\[4pt]
+   Pooling averages $\eta$ away and reveals $\mu$; a $400$-token support has
+   estimator error is large relative to the document component, especially for
+   $\widehat S$. The per-document
+   estimate therefore encodes\\ \emph{which population a document came from},
+   and almost nothing about the document.};
+
+\draw[flow] (pool.south) -- ++(0,-0.9) -- ($(mech.north)+(-3.2,0)$);
+\draw[flow] (doc.south)  -- ++(0,-0.9) -- ($(mech.north)+( 3.2,0)$);
+
+% ------------------------------------------------------------- four predictions
+\node[grouplab, anchor=west] at (0.3,-1.75)
+  {Four predictions, each confirmed at an independent measurement point:};
+
+\node[evalnode, minimum width=30mm, text width=34mm] (p1) at (2.6,-3.95)
+  {\textbf{P1 --- redundant}\\ where population identity is already
+   recoverable\\[3pt]
+   $85\to31$ features:\\ AUROC $0.9984\to0.9984$,\\
+   TPR@1\%FPR $0.9587\to\mathbf{0.9612}$\\[2pt] ($7/8$ folds tie or improve)};
+
+\node[evalnode, minimum width=30mm, text width=34mm] (p2) at (6.4,-3.95)
+  {\textbf{P2 --- negligible margin}\\[3pt]
+   summed permutation importance of all 54 fractal columns:\\[2pt]
+   $\mathbf{1.7\times10^{-4}}$ AUROC\\ vs.\ $3.6\times10^{-2}$ total\\[2pt]
+   (split gain says $5.52\%$)};
+
+\node[evalnode, minimum width=30mm, text width=34mm] (p3) at (10.2,-3.95)
+  {\textbf{P3 --- weak within-population signal}\\[3pt]
+   8-way prompt-type ID,\\ fractal-only macro-F1:\\[2pt]
+   $\mathbf{0.198}$ vs.\ $0.125$ chance\\[2pt] (all 85 features: $0.582$)};
+
+\node[passnode, minimum width=30mm, text width=34mm] (p4) at (14.0,-3.95)
+  {\textbf{P4 --- pays only when the population changes}\\[3pt]
+   GAGLE$\to$RAID, matched\\ $22{,}041$ rows:\\[2pt]
+   $\Delta$AUROC $=\mathbf{+0.0240}$\\ $[0.0222,\,0.0259]$};
+
+\foreach \n/\x in {p1/2.6, p2/6.4, p3/10.2, p4/14.0}{
+  \draw[flow] ($(mech.south)+(0,0)$) -- ++(0,-1.35) -| (\x,-2.95) -- (\n.north);
+}
+
+\end{tikzpicture}

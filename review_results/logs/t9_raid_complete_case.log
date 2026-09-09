@@ -1,0 +1,83 @@
+/home/user/miniconda3/envs/review/lib/python3.11/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator LabelEncoder from version 1.7.2 when using version 1.9.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/home/user/miniconda3/envs/review/lib/python3.11/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator _SigmoidCalibration from version 1.7.2 when using version 1.9.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/home/user/miniconda3/envs/review/lib/python3.11/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator CalibratedClassifierCV from version 1.7.2 when using version 1.9.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+[t9] n_total=68212  included(complete-case)=22041  excluded(>=1 NaN feature)=46171
+
+[t9] composition by Label (included % | excluded %):
+  chatgpt                   included=0.057  excluded=0.052  diff=+0.005
+  cohere                    included=0.043  excluded=0.042  diff=+0.002
+  cohere-chat               included=0.029  excluded=0.032  diff=-0.003
+  gpt2                      included=0.049  excluded=0.063  diff=-0.014
+  gpt3                      included=0.018  excluded=0.023  diff=-0.005
+  gpt4                      included=0.063  excluded=0.058  diff=+0.005
+  human                     included=0.515  excluded=0.494  diff=+0.021
+  llama-chat                included=0.067  excluded=0.055  diff=+0.012
+  mistral                   included=0.050  excluded=0.055  diff=-0.005
+  mistral-chat              included=0.032  excluded=0.036  diff=-0.004
+  mpt                       included=0.051  excluded=0.061  diff=-0.010
+  mpt-chat                  included=0.024  excluded=0.029  diff=-0.004
+
+[t9] composition by domain (included % | excluded %):
+  abstracts                 included=0.064  excluded=0.082  diff=-0.018
+  books                     included=0.139  excluded=0.128  diff=+0.011
+  news                      included=0.174  excluded=0.155  diff=+0.019
+  poetry                    included=0.123  excluded=0.121  diff=+0.001
+  recipes                   included=0.159  excluded=0.163  diff=-0.004
+  reddit                    included=0.075  excluded=0.084  diff=-0.009
+  reviews                   included=0.142  excluded=0.134  diff=+0.008
+  wiki                      included=0.124  excluded=0.133  diff=-0.009
+
+[t9] composition by attack (included % | excluded %):
+  alternative_spelling      included=0.099  excluded=0.086  diff=+0.012
+  article_deletion          included=0.097  excluded=0.079  diff=+0.018
+  homoglyph                 included=0.191  excluded=0.186  diff=+0.005
+  none                      included=0.098  excluded=0.086  diff=+0.012
+  paraphrase                included=0.076  excluded=0.051  diff=+0.025
+  perplexity_misspelling    included=0.102  excluded=0.086  diff=+0.017
+  upper_lower               included=0.100  excluded=0.086  diff=+0.014
+  whitespace                included=0.141  excluded=0.097  diff=+0.044
+  zero_width_space          included=0.095  excluded=0.243  diff=-0.148
+
+[t9] complete-case baseline AUROC (sanity, should match T5's 0.8032): 0.8032
+
+[t9] complete-case AUROC by attack:
+  homoglyph                 n=  4216  auroc=0.7110
+  whitespace                n=  3097  auroc=0.8815
+  perplexity_misspelling    n=  2257  auroc=0.8500
+  upper_lower               n=  2207  auroc=0.8365
+  alternative_spelling      n=  2174  auroc=0.8606
+  none                      n=  2171  auroc=0.8626
+  article_deletion          n=  2148  auroc=0.8455
+  zero_width_space          n=  2085  auroc=0.6503
+  paraphrase                n=  1686  auroc=0.7829
+
+[t9] complete-case AUROC by domain:
+  news                      n=  3839  auroc=0.9302
+  recipes                   n=  3510  auroc=0.6601
+  reviews                   n=  3138  auroc=0.8810
+  books                     n=  3065  auroc=0.8301
+  wiki                      n=  2731  auroc=0.8136
+  poetry                    n=  2705  auroc=0.7181
+  reddit                    n=  1652  auroc=0.5916
+  abstracts                 n=  1401  auroc=0.7240
+
+[t9] complete-case AUROC by generator (vs shared human pool):
+  llama-chat                n= 12840  auroc=0.8575
+  gpt4                      n= 12748  auroc=0.8706
+  chatgpt                   n= 12608  auroc=0.8990
+  mpt                       n= 12485  auroc=0.7319
+  mistral                   n= 12466  auroc=0.7062
+  gpt2                      n= 12442  auroc=0.7616
+  cohere                    n= 12314  auroc=0.7537
+  mistral-chat              n= 12060  auroc=0.8207
+  cohere-chat               n= 12002  auroc=0.8139
+  mpt-chat                  n= 11889  auroc=0.6967
+  gpt3                      n= 11757  auroc=0.8631
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t9_raid_complete_case.json

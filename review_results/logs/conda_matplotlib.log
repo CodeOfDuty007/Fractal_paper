@@ -1,0 +1,223 @@
+2 channel Terms of Service accepted
+Channels:
+ - conda-forge
+ - defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/user/miniconda3/envs/review
+
+  added / updated specs:
+    - matplotlib
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    alsa-lib-1.2.16.1          |       h7cc23a3_1         581 KB  conda-forge
+    brotli-1.2.0               |       h505cf86_4          20 KB  conda-forge
+    brotli-bin-1.2.0           |       h9908984_4          21 KB  conda-forge
+    cairo-1.18.4               |       h3c89d7e_3         968 KB  conda-forge
+    contourpy-1.3.3            |  py311h724c32c_4         313 KB  conda-forge
+    cycler-0.12.1              |     pyhcf101f3_2          14 KB  conda-forge
+    cyrus-sasl-2.1.28          |       hac629b4_1         205 KB  conda-forge
+    dbus-1.16.2                |       he8c428d_2         439 KB  conda-forge
+    double-conversion-3.4.0    |       hecca717_0          70 KB  conda-forge
+    font-ttf-dejavu-sans-mono-2.37|       hab24e00_0         388 KB  conda-forge
+    font-ttf-inconsolata-3.000 |       h77eed37_0          94 KB  conda-forge
+    font-ttf-source-code-pro-2.038|       h77eed37_0         684 KB  conda-forge
+    font-ttf-ubuntu-0.83       |       h77eed37_3         1.5 MB  conda-forge
+    fontconfig-2.18.3          |       h4db4eae_1         289 KB  conda-forge
+    fonts-conda-ecosystem-1    |                0           4 KB  conda-forge
+    fonts-conda-forge-1        |       hc364b38_1           4 KB  conda-forge
+    fonttools-4.63.0           |  py311h3778330_0         2.9 MB  conda-forge
+    freetype-2.14.3            |       ha770c72_2         171 KB  conda-forge
+    fribidi-1.0.16             |       h7cc23a3_2          61 KB  conda-forge
+    graphite2-1.3.15           |       h54a6638_1         100 KB  conda-forge
+    kiwisolver-1.5.1           |  py311h4c6fd42_1          75 KB  conda-forge
+    lcms2-2.19.1               |       h9073bf1_2         248 KB  conda-forge
+    lerc-4.2.0                 |       hdb68285_0         265 KB  conda-forge
+    libclang-cpp23.1-23.1.0    |default_h0acdd01_1        24.2 MB  conda-forge
+    libclang13-23.1.0          |default_h7855034_1        14.7 MB  conda-forge
+    libcups-2.3.3              |       h7a8fb5f_6         4.3 MB  conda-forge
+    libdeflate-1.25            |       hd45a770_1          72 KB  conda-forge
+    libdrm-2.4.129             |       h7cc23a3_0         306 KB  conda-forge
+    libegl-1.7.0               |       ha4b6fd6_5          46 KB  conda-forge
+    libegl-devel-1.7.0         |       ha4b6fd6_5          31 KB  conda-forge
+    libfreetype-2.14.3         |       ha770c72_2           8 KB  conda-forge
+    libfreetype6-2.14.3        |       h5e6c136_2         379 KB  conda-forge
+    libgl-1.7.0                |       ha4b6fd6_5         129 KB  conda-forge
+    libgl-devel-1.7.0          |       ha4b6fd6_5         113 KB  conda-forge
+    libglib-2.88.3             |       he503a2a_3         4.5 MB  conda-forge
+    libglvnd-1.7.0             |       ha4b6fd6_5         131 KB  conda-forge
+    libglx-1.7.0               |       ha4b6fd6_5          78 KB  conda-forge
+    libglx-devel-1.7.0         |       ha4b6fd6_5          27 KB  conda-forge
+    libharfbuzz-14.4.0         |       h23af247_1         1.3 MB  conda-forge
+    libjpeg-turbo-3.2.0        |       hb03c661_1         635 KB  conda-forge
+    libllvm23-23.1.0           |       h474f4eb_0        43.0 MB  conda-forge
+    libntlm-1.8                |       hb9d3cd8_0          33 KB  conda-forge
+    libopengl-1.7.0            |       ha4b6fd6_5          49 KB  conda-forge
+    libpciaccess-0.19          |       hb03c661_1          29 KB  conda-forge
+    libpng-1.6.58              |       h922cc85_1         309 KB  conda-forge
+    libpq-18.6                 |       h9d76c99_1         2.6 MB  conda-forge
+    libraqm-0.11.0             |       h6406941_0          33 KB  conda-forge
+    libtiff-4.7.2              |       hcc2c06a_1         449 KB  conda-forge
+    libvulkan-loader-1.4.357.0 |       h0e34353_2         202 KB  conda-forge
+    libwebp-base-1.6.0         |       hd42ef1d_1         418 KB  conda-forge
+    libxcb-1.17.0              |       hb83e432_2         386 KB  conda-forge
+    libxkbcommon-1.13.2        |       h51789e4_1         920 KB  conda-forge
+    libxslt-1.1.45             |       h8e12856_1         244 KB  conda-forge
+    matplotlib-3.11.1          |  py311h968eb38_2          15 KB  conda-forge
+    matplotlib-base-3.11.1     |  py311he401cf6_2         8.5 MB  conda-forge
+    munkres-1.1.4              |     pyhd8ed1ab_1          15 KB  conda-forge
+    openjpeg-2.5.4             |       heb1ab33_2         382 KB  conda-forge
+    openldap-2.6.13            |       hbde042b_0         768 KB  conda-forge
+    pcre2-10.47                |       h8b3dc9c_1         1.2 MB  conda-forge
+    pillow-12.3.0              |  py311hf303fd3_2         1.0 MB  conda-forge
+    pixman-0.46.4              |       h54a6638_3         368 KB  conda-forge
+    pthread-stubs-0.4          |    h7cc23a3_1004           9 KB  conda-forge
+    pyparsing-3.3.2            |     pyhcf101f3_0         108 KB  conda-forge
+    pyside6-6.11.2             |  py311h242c0d0_1        13.3 MB  conda-forge
+    qhull-2020.2               |       h434a139_5         540 KB  conda-forge
+    qt6-main-6.11.2            | pl5321h9df5c37_0        58.1 MB  conda-forge
+    tornado-6.5.8              |  py311h0d48ccd_1         868 KB  conda-forge
+    unicodedata2-17.0.1        |  py311h0d48ccd_1         404 KB  conda-forge
+    wayland-1.26.0             |       hc1c935e_2         332 KB  conda-forge
+    xcb-util-0.4.1             |       h4f16b4b_2          20 KB  conda-forge
+    xcb-util-cursor-0.1.6      |       hb03c661_0          20 KB  conda-forge
+    xcb-util-image-0.4.0       |       hb711507_2          24 KB  conda-forge
+    xcb-util-keysyms-0.4.1     |       hb711507_0          14 KB  conda-forge
+    xcb-util-renderutil-0.3.10 |       hb711507_0          17 KB  conda-forge
+    xcb-util-wm-0.4.2          |       hb711507_0          50 KB  conda-forge
+    xkeyboard-config-2.48      |       h280c20c_0         431 KB  conda-forge
+    xorg-libice-1.1.2          |       h280c20c_0          61 KB  conda-forge
+    xorg-libsm-1.2.6           |       h0d788c3_1          30 KB  conda-forge
+    xorg-libx11-1.8.13         |       he1eb515_1         820 KB  conda-forge
+    xorg-libxau-1.0.12         |       hb03c661_2          16 KB  conda-forge
+    xorg-libxcomposite-0.4.7   |       hb03c661_0          14 KB  conda-forge
+    xorg-libxcursor-1.2.3      |       hb9d3cd8_0          32 KB  conda-forge
+    xorg-libxdamage-1.1.6      |       hb9d3cd8_0          13 KB  conda-forge
+    xorg-libxdmcp-1.1.5        |       hb03c661_2          21 KB  conda-forge
+    xorg-libxext-1.3.7         |       h7cc23a3_1          52 KB  conda-forge
+    xorg-libxfixes-6.0.2       |       h7cc23a3_1          21 KB  conda-forge
+    xorg-libxi-1.8.3           |       h7cc23a3_1          48 KB  conda-forge
+    xorg-libxrandr-1.5.5       |       h7cc23a3_1          30 KB  conda-forge
+    xorg-libxrender-0.9.12     |       hb03c661_1          34 KB  conda-forge
+    xorg-libxtst-1.2.5         |       h7cc23a3_4          34 KB  conda-forge
+    xorg-libxxf86vm-1.1.7      |       hb03c661_0          18 KB  conda-forge
+    xorg-xorgproto-2025.1      |       hebe6cf0_2         581 KB  conda-forge
+    zlib-ng-2.3.3              |       hce19668_1         121 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:       197.1 MB
+
+The following NEW packages will be INSTALLED:
+
+  alsa-lib           conda-forge/linux-64::alsa-lib-1.2.16.1-h7cc23a3_1 
+  brotli             conda-forge/linux-64::brotli-1.2.0-h505cf86_4 
+  brotli-bin         conda-forge/linux-64::brotli-bin-1.2.0-h9908984_4 
+  cairo              conda-forge/linux-64::cairo-1.18.4-h3c89d7e_3 
+  contourpy          conda-forge/linux-64::contourpy-1.3.3-py311h724c32c_4 
+  cycler             conda-forge/noarch::cycler-0.12.1-pyhcf101f3_2 
+  cyrus-sasl         conda-forge/linux-64::cyrus-sasl-2.1.28-hac629b4_1 
+  dbus               conda-forge/linux-64::dbus-1.16.2-he8c428d_2 
+  double-conversion  conda-forge/linux-64::double-conversion-3.4.0-hecca717_0 
+  font-ttf-dejavu-s~ conda-forge/noarch::font-ttf-dejavu-sans-mono-2.37-hab24e00_0 
+  font-ttf-inconsol~ conda-forge/noarch::font-ttf-inconsolata-3.000-h77eed37_0 
+  font-ttf-source-c~ conda-forge/noarch::font-ttf-source-code-pro-2.038-h77eed37_0 
+  font-ttf-ubuntu    conda-forge/noarch::font-ttf-ubuntu-0.83-h77eed37_3 
+  fontconfig         conda-forge/linux-64::fontconfig-2.18.3-h4db4eae_1 
+  fonts-conda-ecosy~ conda-forge/noarch::fonts-conda-ecosystem-1-0 
+  fonts-conda-forge  conda-forge/noarch::fonts-conda-forge-1-hc364b38_1 
+  fonttools          conda-forge/linux-64::fonttools-4.63.0-py311h3778330_0 
+  freetype           conda-forge/linux-64::freetype-2.14.3-ha770c72_2 
+  fribidi            conda-forge/linux-64::fribidi-1.0.16-h7cc23a3_2 
+  graphite2          conda-forge/linux-64::graphite2-1.3.15-h54a6638_1 
+  kiwisolver         conda-forge/linux-64::kiwisolver-1.5.1-py311h4c6fd42_1 
+  lcms2              conda-forge/linux-64::lcms2-2.19.1-h9073bf1_2 
+  lerc               conda-forge/linux-64::lerc-4.2.0-hdb68285_0 
+  libclang-cpp23.1   conda-forge/linux-64::libclang-cpp23.1-23.1.0-default_h0acdd01_1 
+  libclang13         conda-forge/linux-64::libclang13-23.1.0-default_h7855034_1 
+  libcups            conda-forge/linux-64::libcups-2.3.3-h7a8fb5f_6 
+  libdeflate         conda-forge/linux-64::libdeflate-1.25-hd45a770_1 
+  libdrm             conda-forge/linux-64::libdrm-2.4.129-h7cc23a3_0 
+  libegl             conda-forge/linux-64::libegl-1.7.0-ha4b6fd6_5 
+  libegl-devel       conda-forge/linux-64::libegl-devel-1.7.0-ha4b6fd6_5 
+  libfreetype        conda-forge/linux-64::libfreetype-2.14.3-ha770c72_2 
+  libfreetype6       conda-forge/linux-64::libfreetype6-2.14.3-h5e6c136_2 
+  libgl              conda-forge/linux-64::libgl-1.7.0-ha4b6fd6_5 
+  libgl-devel        conda-forge/linux-64::libgl-devel-1.7.0-ha4b6fd6_5 
+  libglib            conda-forge/linux-64::libglib-2.88.3-he503a2a_3 
+  libglvnd           conda-forge/linux-64::libglvnd-1.7.0-ha4b6fd6_5 
+  libglx             conda-forge/linux-64::libglx-1.7.0-ha4b6fd6_5 
+  libglx-devel       conda-forge/linux-64::libglx-devel-1.7.0-ha4b6fd6_5 
+  libharfbuzz        conda-forge/linux-64::libharfbuzz-14.4.0-h23af247_1 
+  libjpeg-turbo      conda-forge/linux-64::libjpeg-turbo-3.2.0-hb03c661_1 
+  libllvm23          conda-forge/linux-64::libllvm23-23.1.0-h474f4eb_0 
+  libntlm            conda-forge/linux-64::libntlm-1.8-hb9d3cd8_0 
+  libopengl          conda-forge/linux-64::libopengl-1.7.0-ha4b6fd6_5 
+  libpciaccess       conda-forge/linux-64::libpciaccess-0.19-hb03c661_1 
+  libpng             conda-forge/linux-64::libpng-1.6.58-h922cc85_1 
+  libpq              conda-forge/linux-64::libpq-18.6-h9d76c99_1 
+  libraqm            conda-forge/linux-64::libraqm-0.11.0-h6406941_0 
+  libtiff            conda-forge/linux-64::libtiff-4.7.2-hcc2c06a_1 
+  libvulkan-loader   conda-forge/linux-64::libvulkan-loader-1.4.357.0-h0e34353_2 
+  libwebp-base       conda-forge/linux-64::libwebp-base-1.6.0-hd42ef1d_1 
+  libxcb             conda-forge/linux-64::libxcb-1.17.0-hb83e432_2 
+  libxkbcommon       conda-forge/linux-64::libxkbcommon-1.13.2-h51789e4_1 
+  libxslt            conda-forge/linux-64::libxslt-1.1.45-h8e12856_1 
+  matplotlib         conda-forge/linux-64::matplotlib-3.11.1-py311h968eb38_2 
+  matplotlib-base    conda-forge/linux-64::matplotlib-base-3.11.1-py311he401cf6_2 
+  munkres            conda-forge/noarch::munkres-1.1.4-pyhd8ed1ab_1 
+  openjpeg           conda-forge/linux-64::openjpeg-2.5.4-heb1ab33_2 
+  openldap           conda-forge/linux-64::openldap-2.6.13-hbde042b_0 
+  pcre2              conda-forge/linux-64::pcre2-10.47-h8b3dc9c_1 
+  pillow             conda-forge/linux-64::pillow-12.3.0-py311hf303fd3_2 
+  pixman             conda-forge/linux-64::pixman-0.46.4-h54a6638_3 
+  pthread-stubs      conda-forge/linux-64::pthread-stubs-0.4-h7cc23a3_1004 
+  pyparsing          conda-forge/noarch::pyparsing-3.3.2-pyhcf101f3_0 
+  pyside6            conda-forge/linux-64::pyside6-6.11.2-py311h242c0d0_1 
+  qhull              conda-forge/linux-64::qhull-2020.2-h434a139_5 
+  qt6-main           conda-forge/linux-64::qt6-main-6.11.2-pl5321h9df5c37_0 
+  tornado            conda-forge/linux-64::tornado-6.5.8-py311h0d48ccd_1 
+  unicodedata2       conda-forge/linux-64::unicodedata2-17.0.1-py311h0d48ccd_1 
+  wayland            conda-forge/linux-64::wayland-1.26.0-hc1c935e_2 
+  xcb-util           conda-forge/linux-64::xcb-util-0.4.1-h4f16b4b_2 
+  xcb-util-cursor    conda-forge/linux-64::xcb-util-cursor-0.1.6-hb03c661_0 
+  xcb-util-image     conda-forge/linux-64::xcb-util-image-0.4.0-hb711507_2 
+  xcb-util-keysyms   conda-forge/linux-64::xcb-util-keysyms-0.4.1-hb711507_0 
+  xcb-util-renderut~ conda-forge/linux-64::xcb-util-renderutil-0.3.10-hb711507_0 
+  xcb-util-wm        conda-forge/linux-64::xcb-util-wm-0.4.2-hb711507_0 
+  xkeyboard-config   conda-forge/linux-64::xkeyboard-config-2.48-h280c20c_0 
+  xorg-libice        conda-forge/linux-64::xorg-libice-1.1.2-h280c20c_0 
+  xorg-libsm         conda-forge/linux-64::xorg-libsm-1.2.6-h0d788c3_1 
+  xorg-libx11        conda-forge/linux-64::xorg-libx11-1.8.13-he1eb515_1 
+  xorg-libxau        conda-forge/linux-64::xorg-libxau-1.0.12-hb03c661_2 
+  xorg-libxcomposite conda-forge/linux-64::xorg-libxcomposite-0.4.7-hb03c661_0 
+  xorg-libxcursor    conda-forge/linux-64::xorg-libxcursor-1.2.3-hb9d3cd8_0 
+  xorg-libxdamage    conda-forge/linux-64::xorg-libxdamage-1.1.6-hb9d3cd8_0 
+  xorg-libxdmcp      conda-forge/linux-64::xorg-libxdmcp-1.1.5-hb03c661_2 
+  xorg-libxext       conda-forge/linux-64::xorg-libxext-1.3.7-h7cc23a3_1 
+  xorg-libxfixes     conda-forge/linux-64::xorg-libxfixes-6.0.2-h7cc23a3_1 
+  xorg-libxi         conda-forge/linux-64::xorg-libxi-1.8.3-h7cc23a3_1 
+  xorg-libxrandr     conda-forge/linux-64::xorg-libxrandr-1.5.5-h7cc23a3_1 
+  xorg-libxrender    conda-forge/linux-64::xorg-libxrender-0.9.12-hb03c661_1 
+  xorg-libxtst       conda-forge/linux-64::xorg-libxtst-1.2.5-h7cc23a3_4 
+  xorg-libxxf86vm    conda-forge/linux-64::xorg-libxxf86vm-1.1.7-hb03c661_0 
+  xorg-xorgproto     conda-forge/linux-64::xorg-xorgproto-2025.1-hebe6cf0_2 
+  zlib-ng            conda-forge/linux-64::zlib-ng-2.3.3-hce19668_1 
+
+
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+WARNING conda.conda_pypi.main:notify_externally_managed_future(156): 
+  Did you know? You can install many PyPI packages with conda
+  using the conda-pypi beta. Get started:
+    https://docs.conda.io/projects/conda/en/stable/new-features.html
+

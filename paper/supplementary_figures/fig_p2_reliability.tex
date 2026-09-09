@@ -1,0 +1,59 @@
+% ============================================================================
+%  fig_p2_reliability.tex -- P2: the pre-registered gate that failed.
+%  This is a FINDING figure, not a filter figure. The whitelist it emits is
+%  empty and is never read by any downstream script (verified by grep).
+% ============================================================================
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[artifact, minimum width=30mm] (src) at (2.2,5.3)
+  {v1\_gagle.parquet};
+
+\node[phase, minimum width=32mm, text width=40mm] (split) at (2.2,3.3)
+  {\textbf{Interleaved split-half}\\[2pt]
+   odd-index tokens $\rightarrow$ half A\\
+   even-index tokens $\rightarrow$ half B\\[2pt]
+   re-fit $S,H$ independently on each};
+
+\node[phase, minimum width=30mm, text width=38mm] (rho) at (7.4,3.3)
+  {\textbf{Spearman--Brown}\\[2pt]
+   $\rho = \dfrac{2r_{AB}}{1+r_{AB}}$\\[3pt]
+   pre-registered bar: $\rho \geq 0.60$};
+
+% ---- results ladder
+\node[failnode, minimum width=44mm, text width=54mm] (res) at (12.6,4.2)
+  {\textbf{Result: 0 / 20 features pass}\\[3pt]
+   per-doc $S$ (\texttt{gemma\_S}): $\rho = 0.063$\\
+   per-doc $H$ (best): $\rho \approx 0.576$\\
+   stability-profile fallback (best): $\rho = 0.431$};
+
+\node[artifact, minimum width=36mm] (wl) at (7.4,1.35)
+  {fractal\_feature\_whitelist.json\\[1pt]
+   \upshape\rmfamily \textbf{whitelist: [\,]}\quad rejected: 20};
+
+\node[finding, minimum width=52mm, text width=62mm] (mech) at (7.0,-0.75)
+  {\textbf{Mechanism.} Two halves of the \emph{same} document agree barely
+   better than two \emph{different} documents. Per-document $S$ is, to first
+   order, noise with a domain-dependent mean --- which helps in-domain (the
+   mean shifts by domain and label) and hurts out-of-domain (no stable
+   per-document signal exists to transfer).};
+
+\draw[flow] (src) -- (split);
+\draw[flow] (split) -- (rho);
+\draw[flow] (rho) -- (res);
+\draw[flow] (rho.south) -- (wl.north);
+\draw[flow] (wl.south) -- (mech.north);
+
+% the non-edge
+% lengthened from ++(2.6,0): the centred label is ~3.5cm wide and its left
+% half sat on top of the whitelist node -- caught by rendering.
+\draw[deadflow] (wl.east) -- ++(4.4,0)
+  node[edgelab, pos=0.62, above=1pt, text=okVermil]{no consumer in codebase};
+
+% narrowed and raised: at width 46mm from y=1.9 this ran into the
+% Mechanism box (x from 3.9) -- caught by rendering.
+\node[note, text width=32mm, anchor=north west] at (0.1,2.15)
+  {The pre-registered fallback (windowed\\ mean/var/drift) also fails, so the
+   plan's\\ own escape hatch is unavailable. The\\ pivot is therefore to
+   \emph{report} the failure\\ as a primary finding, not to re-tune the bar.};
+
+\end{tikzpicture}

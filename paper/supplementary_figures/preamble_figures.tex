@@ -1,0 +1,66 @@
+% ============================================================================
+%  preamble_figures.tex -- paste ONCE into your document preamble.
+%  Shared by every fig_*.tex in writing/figures/.
+%
+%  Palette: Okabe-Ito (Okabe & Ito, Color Universal Design; popularised by
+%  Wong, Nature Methods 2011). Colourblind-safe under deuteranopia,
+%  protanopia and tritanopia; the de-facto categorical standard for
+%  scientific figures. Do NOT substitute a rainbow/jet palette.
+%
+%  Deliberately does NOT set a font family: TikZ node text must inherit the
+%  document's own typeface (Times for ICLR/NeurIPS) so figure text matches
+%  body text. Size is controlled with \footnotesize/\scriptsize, never with
+%  \resizebox -- rescaling breaks font-size matching, which reviewers notice.
+% ============================================================================
+
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric,
+                decorations.pathreplacing,patterns}
+
+% ---------------------------------------------------------------- palette --
+\definecolor{okBlue}   {HTML}{0072B2}  % primary dataflow / P3
+\definecolor{okVermil} {HTML}{D55E00}  % negative result / failure / P4 attacks
+\definecolor{okGreen}  {HTML}{009E73}  % validated artifact / pass
+\definecolor{okOrange} {HTML}{E69F00}  % compute-heavy stage
+\definecolor{okSky}    {HTML}{56B4E9}  % data / corpus
+\definecolor{okPurple} {HTML}{CC79A7}  % evaluation / transfer
+\definecolor{okYellow} {HTML}{F0E442}  % highlight band (use sparingly)
+\definecolor{okBlack}  {HTML}{000000}
+
+\definecolor{inkGrey}  {HTML}{4D4D4D}  % body text / edges
+\definecolor{softGrey} {HTML}{F2F2F2}  % container fills
+
+% ------------------------------------------------------------- node styles --
+\tikzset{
+  % --- generic ---
+  fignode/.style      = {rounded corners=2pt, draw, line width=0.6pt,
+                         align=center, inner sep=4pt, font=\scriptsize},
+  % --- semantic roles ---
+  phase/.style        = {fignode, fill=okBlue!10,   draw=okBlue,
+                         text=okBlack, minimum width=26mm, minimum height=9mm},
+  gpuphase/.style     = {fignode, fill=okOrange!18, draw=okOrange!90!black},
+  corpus/.style       = {fignode, fill=okSky!18,    draw=okSky!90!black},
+  artifact/.style     = {fignode, fill=okGreen!12,  draw=okGreen!90!black,
+                         font=\scriptsize\ttfamily},
+  finding/.style      = {fignode, fill=okVermil!12, draw=okVermil,
+                         text=okBlack},
+  failnode/.style     = {fignode, fill=okVermil!18, draw=okVermil,
+                         line width=0.9pt},
+  evalnode/.style     = {fignode, fill=okPurple!14, draw=okPurple!90!black},
+  note/.style         = {align=left, font=\scriptsize\itshape, text=inkGrey,
+                         inner sep=2pt},
+  grouplab/.style     = {font=\scriptsize\bfseries, text=inkGrey},
+  % --- containers ---
+  container/.style    = {rounded corners=3pt, draw=inkGrey!35, dashed,
+                         line width=0.5pt, fill=softGrey, inner sep=6pt},
+  % --- edges ---
+  flow/.style         = {-{Stealth[length=4pt,width=3pt]}, draw=inkGrey,
+                         line width=0.7pt},
+  weakflow/.style     = {-{Stealth[length=4pt,width=3pt]}, draw=inkGrey!55,
+                         line width=0.6pt, dashed},
+  deadflow/.style     = {-{Stealth[length=4pt,width=3pt]}, draw=okVermil,
+                         line width=0.8pt, dash pattern=on 2pt off 1.6pt},
+  edgelab/.style      = {font=\scriptsize, text=inkGrey, inner sep=1.5pt,
+                         fill=white, rounded corners=1pt},
+}

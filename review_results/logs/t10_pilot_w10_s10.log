@@ -1,0 +1,20 @@
+[t10-pilot] target_n_docs=300 window_words=10 stride_words=10 min_windows=8 embed_model=all-MiniLM-L6-v2
+[t10-pilot] sampled 600 candidate docs, 0s
+[t10-pilot] 300/300 docs have >= 8 windows (the rest are too short), 0s
+[t10-pilot] mean inter-half word-position overlap (Jaccard): 0.0000 over 300 docs -- directly measured, not assumed (w=10 s=10: analytically, adjacent windows share max(0, w-s) of w words -> ~0.00 pairwise fraction at closest spacing)
+[t10-pilot] 14430 total windows to embed, 0s
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 12704.03it/s]
+[t10-pilot] embedding done: 14430 windows, 22s (1.55 ms/window), 25s total
+[t10-pilot] persistence computed for 200/300 docs, 0s
+[t10-pilot] persistence homology done: 300 usable docs, 0s (1.63 ms/doc), 25s total
+[t10-pilot] H0_total_persistence: rho_pooled=0.9894 rho_within=0.9894 n=300
+[t10-pilot] H0_entropy: rho_pooled=0.9982 rho_within=0.9982 n=300
+[t10-pilot] H0_n_bars: rho_pooled=0.9988 rho_within=0.9988 n=300
+[t10-pilot] H1_total_persistence: rho_pooled=0.7678 rho_within=0.7678 n=300
+[t10-pilot] H1_entropy: rho_pooled=0.7885 rho_within=0.7885 n=300
+[t10-pilot] H1_n_bars: rho_pooled=0.8472 rho_within=0.8472 n=300
+[t10-pilot] H1_max_persistence: rho_pooled=0.4598 rho_within=0.4598 n=300
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t10_pilot_topology_w10_s10.json
+[t10-pilot] TOTAL 25s

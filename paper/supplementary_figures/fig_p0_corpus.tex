@@ -1,0 +1,52 @@
+% ============================================================================
+%  fig_p0_corpus.tex -- P0: corpus-level fractal baseline.
+%  Constants are taken from src/build_p0_local.py, NOT from the design docs
+%  (the plan text says "min 400 / clip 400"; the code says 320 / 464).
+% ============================================================================
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[corpus, minimum width=30mm] (zip) at (2.0,4.6)
+  {\texttt{gagle.zip} (10.6\,GB)\\[1pt]
+   720 members $=$\\ model $\times$ temp $\times$ domain $\times$ prompt};
+
+\node[phase, minimum width=32mm] (slice) at (2.0,2.6)
+  {\textbf{Token-score slicing}\\[1pt]
+   drop first $64$ (warm-up)\\ clip to $464$\\ require $\geq 320$ tokens};
+
+\node[phase, minimum width=32mm, text width=38mm] (traj) at (7.0,2.6)
+  {\textbf{Surprisal trajectory}\\[2pt]
+   $z_t=(s_t-\mu)/\sigma$,\quad
+   $X_n=\sum_{t\leq n} z_t$\\[2pt]
+   one 1-D walk per document};
+
+\node[phase, minimum width=34mm, text width=42mm] (est) at (12.2,4.0)
+  {\textbf{Hurst $H$} --- rescaled range\\[1pt]
+   $R(n)/S(n)\sim n^{H}$};
+
+\node[phase, minimum width=34mm, text width=42mm] (est2) at (12.2,1.9)
+  {\textbf{H\"older $S$} --- displacement prob.\\[1pt]
+   $p_{\varepsilon}(\tau)\sim\tau^{-S}$,\ \ $\varepsilon=10^{-2}$};
+
+\node[artifact, minimum width=34mm] (out) at (7.0,0.35)
+  {p0\_corpus\_level\_SH.json};
+
+% note moved to the clear band ABOVE the spine (was at (4.4,4.9), where it
+% overlapped the "Surprisal trajectory" node -- caught by rendering).
+\node[note, text width=54mm, anchor=north west] (scale) at (4.6,6.0)
+  {Scale sweep (both estimators):\\
+   $\tau \in \{8,16,32,48,64,96,128,160,192,256,320\}$;\\
+   log--log linear fit; human rows de-duplicated to\\
+   $5{,}000$ (1{,}000 per domain).};
+
+\draw[flow] (zip) -- (slice);
+\draw[flow] (slice) -- (traj);
+\draw[flow] (traj.east) -- ++(0.4,0) |- (est.west);
+\draw[flow] (traj.east) -- ++(0.4,0) |- (est2.west);
+\draw[flow] (est.south east) -- ++(0.6,0) |- (out.east);
+\draw[flow] (est2.south) -- ++(0,-0.8) -| (out.east);
+
+\node[finding, minimum width=40mm, text width=48mm] at (2.2,0.35)
+  {\textbf{Exit gate:} corpus-level trends reproduce\\ the parent
+   result (LLM text: higher $S$, higher $H$).};
+
+\end{tikzpicture}

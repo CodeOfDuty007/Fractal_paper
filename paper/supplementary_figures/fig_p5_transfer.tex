@@ -1,0 +1,89 @@
+% ============================================================================
+%  fig_p5_transfer.tex -- P5: multiclass tasks and cross-corpus transfer.
+%  Numbers: data/p5_task{2,3,4,6}_*.json, all with 2,000-fold bootstrap CIs.
+%  The GAGLE->RAID row reuses the persisted full/random/random/all/lgbm
+%  bundle with NO retraining -- that is what makes it a transfer test.
+%
+%  REWORK (2026-08-30): the original finding banner here said "the same
+%  story P2 and P3 told" -- true for the AUROC-drop-under-transfer fact, but
+%  it implied fractal features are uniformly useless, which a follow-up,
+%  population-matched check (data/fractalscope_check_raid_intersection.json)
+%  contradicts: on the identical 22,041-row complete-case population, the
+%  full 85-feature model beats the 31-feature fractal-free model by 0.0240
+%  AUROC (95% CI excludes 0) -- this is the ONE place fractal features carry
+%  a real, measured advantage. The new evalnode + banner below replace the
+%  old framing with this dissociation.
+% ============================================================================
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[artifact, minimum width=26mm] (v1) at (2.0,6.3)
+  {v1\_gagle.parquet};
+\node[corpus, minimum width=26mm, text width=32mm] (raid) at (2.0,1.4)
+  {\textbf{RAID}\\ 11 generators, 8 domains\\ $+$ 9 adversarial attacks};
+
+\node[gpuphase, minimum width=26mm, text width=32mm] (rescore) at (6.4,1.4)
+  {Ingest $+$ re-score\\ (Gemma-2B, Mistral-7B)\\ $\rightarrow$ Families A--C};
+
+\node[artifact, minimum width=26mm] (v3) at (10.4,1.4)
+  {v3\_raid.parquet\\[1pt] \upshape\rmfamily $68{,}212 \times 90$};
+
+% ---- in-corpus multiclass tasks
+\node[evalnode, minimum width=52mm, text width=62mm] (t2) at (7.6,6.3)
+  {\textbf{T2 --- generator family, GAGLE} (2-class, complete-case, $n=14{,}805$)\\[2pt]
+   AUROC $0.9943$ {\scriptsize[0.9936, 0.9951]}\quad
+   TPR@1\% $0.9016$};
+
+\node[evalnode, minimum width=52mm, text width=62mm] (t3) at (7.6,4.15)
+  {\textbf{T3 --- prompt type, GAGLE} (8-class, macro-F1, $n=14{,}805$)\\[2pt]
+   all 85 features: $0.5816$ {\scriptsize[0.5747, 0.5885]}\\
+   \texttt{fractal\_only} (54): \textcolor{okVermil}{$\mathbf{0.1981}$}
+   {\scriptsize[0.1919, 0.2043]}\ \ (chance $\approx 0.125$)};
+
+% ---- transfer
+\node[evalnode, minimum width=52mm, text width=62mm] (t4) at (7.6,-1.10)
+  {\textbf{Task 4 --- GAGLE $\rightarrow$ RAID transfer} (no retraining;
+   threshold re-derived on RAID's own human population)\\[2pt]
+   in-distribution GAGLE: AUROC $0.9984$, TPR@1\% $0.9587$\\
+   transferred to RAID: AUROC \textcolor{okVermil}{$\mathbf{0.8032}$}
+   {\scriptsize[0.7975, 0.8089]}, TPR@1\% $0.2277$};
+
+\node[evalnode, minimum width=52mm, text width=62mm] (dissoc) at (7.6,-3.85)
+  {\textbf{Population-matched fractal ablation on RAID}
+   (identical 22{,}041-row complete-case set, both models)\\[2pt]
+   \texttt{all} (85 feat): AUROC $0.8032$ {\scriptsize[0.7975,0.8089]}\quad
+   \texttt{all\_minus\_fractal} (31 feat): AUROC $0.7792$
+   {\scriptsize[0.7730,0.7851]}\\
+   paired bootstrap $\Delta$AUROC $= \textcolor{okGreen!60!black}{\mathbf{0.0240}}$,
+   95\% CI $[0.0222,0.0259]$ --- \textbf{excludes zero}};
+
+\node[evalnode, minimum width=30mm, text width=36mm] (t6) at (13.0,3.2)
+  {\textbf{Task 6 --- RAID}\\ 11-class generator ID\\ macro-F1 $0.5441$
+   {\scriptsize[0.5164, 0.5684]}\\ ($n=1{,}572$, chance $\approx 0.09$)};
+
+\draw[flow] (v1.east) -- ++(0.5,0) |- (t2.west);
+\draw[flow] (v1.east) -- ++(0.5,0) |- (t3.west);
+\draw[flow] (raid) -- (rescore);
+\draw[flow] (rescore) -- (v3);
+% route v3 -> t4 down a clear vertical at x=12.0. The previous
+% "(v3.south) -- ++(0,-0.9) -| (t4.east)" dropped a vertical INSIDE t4's box
+% and through the External-validity banner -- caught by rendering.
+\draw[flow] (v3.east) -- (12.0,1.4) -- (12.0,-1.10) -- (t4.east);
+\draw[flow] (v1.west) -- ++(-1.3,0) |- (t4.west);
+\draw[flow] (v3.north) -- (t6.south west);
+\draw[flow] (t4.south) -- (dissoc.north);
+
+% moved to a full-width banner BELOW everything, clear of the new dissoc node.
+% dissoc's 5-line body at text width=62mm is taller than it looks by eye --
+% at y=-6.35 the banner's top edge overlapped dissoc's last line -- caught
+% by rendering; -7.85 clears it with margin.
+\node[finding, minimum width=96mm, text width=104mm] at (7.4,-7.85)
+  {\textbf{External validity is a dissociation, not a uniform drop.}
+   AUROC falls $0.9984 \rightarrow 0.8032$ crossing corpora (the same
+   direction P2/P3 predict), yet on an identical population the fractal
+   family is the \emph{one} thing giving the full model a real edge over
+   the fractal-free one here ($+0.024$ AUROC) --- the opposite of its role
+   under P3's in-corpus folds and P4's attacks (fig\_pipeline\_overview.tex).
+   \texttt{fractal\_only} still sits near the 8-class chance floor on T3:
+   it cannot do this alone, only in combination.};
+
+\end{tikzpicture}

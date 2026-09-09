@@ -1,0 +1,26 @@
+[t0-route2] loaded 3,610,784 long-format rows
+[t0-route2] computing seed-article cluster keys...
+[t0-route2] 5000 unique seed-article clusters over 3,610,784 rows (long-format; documents appear once per scorer x feature)
+[t0-route2] gemma_H: Var(mu_stratum)=0.00023 Var(delta)=0.00217 Var(eta)=0.00352 ICC=0.0391 r_pooled=0.4048 cluster-SE=0.00228
+[t0-route2] gemma_H_R2: Var(mu_stratum)=0.00000 Var(delta)=0.00002 Var(eta)=0.00016 ICC=0.0014 r_pooled=0.1243 cluster-SE=0.00290
+[t0-route2] gemma_H_window_drift: Var(mu_stratum)=0.00001 Var(delta)=0.00080 Var(eta)=0.00343 ICC=0.0030 r_pooled=0.1919 cluster-SE=0.00243
+[t0-route2] gemma_H_window_mean: Var(mu_stratum)=0.00010 Var(delta)=0.00128 Var(eta)=0.00363 ICC=0.0209 r_pooled=0.2750 cluster-SE=0.00236
+[t0-route2] gemma_H_window_var: Var(mu_stratum)=0.00000 Var(delta)=0.00000 Var(eta)=0.00002 ICC=0.0028 r_pooled=0.1622 cluster-SE=0.00513
+[t0-route2] gemma_S: Var(mu_stratum)=0.00049 Var(delta)=0.01049 Var(eta)=0.32793 ICC=0.0014 r_pooled=0.0323 cluster-SE=0.00241
+[t0-route2] gemma_S_R2: Var(mu_stratum)=0.00004 Var(delta)=0.00096 Var(eta)=0.15081 ICC=0.0003 r_pooled=0.0066 cluster-SE=0.00204
+[t0-route2] gemma_S_window_drift: Var(mu_stratum)=0.00014 Var(delta)=0.00776 Var(eta)=0.68465 ICC=0.0002 r_pooled=0.0112 cluster-SE=0.00542
+[t0-route2] gemma_S_window_mean: Var(mu_stratum)=0.00022 Var(delta)=0.00309 Var(eta)=0.38829 ICC=0.0006 r_pooled=0.0084 cluster-SE=0.00306
+[t0-route2] gemma_S_window_var: Var(mu_stratum)=0.00004 Var(delta)=0.00016 Var(eta)=0.09835 ICC=0.0004 r_pooled=0.0020 cluster-SE=0.00283
+[t0-route2] mistral_H: Var(mu_stratum)=0.00022 Var(delta)=0.00190 Var(eta)=0.00352 ICC=0.0395 r_pooled=0.3760 cluster-SE=0.00235
+[t0-route2] mistral_H_R2: Var(mu_stratum)=0.00000 Var(delta)=0.00002 Var(eta)=0.00015 ICC=0.0017 r_pooled=0.1077 cluster-SE=0.00289
+[t0-route2] mistral_H_window_drift: Var(mu_stratum)=0.00001 Var(delta)=0.00068 Var(eta)=0.00347 ICC=0.0024 r_pooled=0.1667 cluster-SE=0.00238
+[t0-route2] mistral_H_window_mean: Var(mu_stratum)=0.00010 Var(delta)=0.00109 Var(eta)=0.00364 ICC=0.0214 r_pooled=0.2467 cluster-SE=0.00238
+[t0-route2] mistral_H_window_var: Var(mu_stratum)=0.00000 Var(delta)=0.00000 Var(eta)=0.00002 ICC=0.0022 r_pooled=0.1582 cluster-SE=0.00652
+[t0-route2] mistral_S: Var(mu_stratum)=0.00068 Var(delta)=0.00870 Var(eta)=0.35725 ICC=0.0018 r_pooled=0.0255 cluster-SE=0.00227
+[t0-route2] mistral_S_R2: Var(mu_stratum)=0.00006 Var(delta)=0.00149 Var(eta)=0.15363 ICC=0.0004 r_pooled=0.0100 cluster-SE=0.00217
+[t0-route2] mistral_S_window_drift: Var(mu_stratum)=0.00042 Var(delta)=0.00112 Var(eta)=0.73457 ICC=0.0006 r_pooled=0.0020 cluster-SE=0.00581
+[t0-route2] mistral_S_window_mean: Var(mu_stratum)=0.00034 Var(delta)=0.00519 Var(eta)=0.41283 ICC=0.0008 r_pooled=0.0132 cluster-SE=0.00306
+[t0-route2] mistral_S_window_var: Var(mu_stratum)=0.00004 Var(delta)=0.00014 Var(eta)=0.10551 ICC=0.0003 r_pooled=0.0016 cluster-SE=0.00287
+
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_variance_components.json
+[t0-route2] TOTAL 194s

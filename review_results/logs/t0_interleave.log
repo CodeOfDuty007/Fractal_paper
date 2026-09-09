@@ -1,0 +1,18 @@
+[run] construction=interleave workers=64 window_scale=None skip_windowed=False
+[load] 100/721 shards, 18,788 docs, 3s
+[load] 200/721 shards, 36,649 docs, 6s
+[load] 300/721 shards, 83,116 docs, 13s
+[load] 400/721 shards, 147,376 docs, 23s
+[load] 500/721 shards, 198,789 docs, 32s
+[load] 600/721 shards, 208,187 docs, 33s
+[load] 700/721 shards, 217,018 docs, 35s
+[load] done: 721 shards, 223,834 docs, 36s
+[run]   20/112 chunks, 79,616 rows so far, 289s
+[run]   40/112 chunks, 159,212 rows so far, 396s
+[run]   60/112 chunks, 238,902 rows so far, 409s
+[run]   80/112 chunks, 318,552 rows so far, 473s
+[run]   100/112 chunks, 398,220 rows so far, 490s
+[run] feature computation done: 445,738 (doc,scorer) rows in 504s
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_interleave_stats.json
+[written] /home/user/the author-Backup/the_author2026/paper/review_results/data/t0_t1_interleave_features.parquet (3,610,784 rows)
+[run] TOTAL 514s

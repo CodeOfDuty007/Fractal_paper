@@ -1,0 +1,13 @@
+# Core numerical / ML stack used for feature extraction, scoring, and analysis.
+# Environment used for the paper's final runs: Python 3.12.13, torch 2.13.0, transformers 5.14.1.
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+scipy
+datasets
+transformers
+torch
+pyarrow
+sentence-transformers
