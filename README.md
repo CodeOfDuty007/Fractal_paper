@@ -1,4 +1,4 @@
-# Scale Without Support
+# Scale Without Support: Fractal Signatures Are Not Document Representations
 
 **Multi-scale fractal features for LLM-generated-text detection: what they capture at the
 population level, and why that mostly doesn't survive to the per-document decision.**
@@ -27,8 +27,9 @@ population level, and why that mostly doesn't survive to the per-document decisi
 Detectors of LLM-generated text mostly score a document by how *locally* predictable it is
 under a reference model. This paper asks a different question: does a document's text carry
 usable signal in *how its predictability structure scales* — the multifractal / long-range
-character of the token-level surprisal trajectory, summarized by a Hölder exponent (Ĥ) and
-a rescaled-range statistic (Ŝ) — beyond what existing detectors already extract?
+character of the token-level surprisal trajectory, summarized by a Hurst exponent
+(Ĥ; rescaled-range analysis) and a Hölder exponent (Ŝ; return-probability scaling)
+— beyond what existing detectors already extract?
 
 We separate that question into two levels that the literature usually conflates:
 
@@ -54,7 +55,7 @@ per-document estimate is trustworthy at all — the reliability crossing point `
 | Robustness | Recall against same-lineage paraphrase (0.63–0.86) collapses to 1.2–4.5% under paraphrase from models outside the scorer's lineage, across a five-model capability ladder |
 | Within-population signal | A weak but genuine document-level signal survives targeted confound checks (§4.2 in the paper): 0.198 vs. 0.125 chance, not population leakage |
 
-Full numbers, confidence intervals, and the four falsifiable predictions (P1–P3 in the
+Full numbers, confidence intervals, and the four falsifiable predictions (P1–P4 in the
 paper's Table 1) are in [`paper/ICLR2027_ScaleWithoutSupport.pdf`](paper/ICLR2027_ScaleWithoutSupport.pdf).
 
 ## Repository structure
@@ -174,7 +175,7 @@ number in the paper can be traced back to the check that produced it. See
 
 ```bibtex
 @inproceedings{anonymous2027scalewithoutsupport,
-  title     = {Scale Without Support: Multi-Scale Fractal Features for {LLM}-Generated-Text Detection},
+  title     = {Scale Without Support: Fractal Signatures Are Not Document Representations},
   author    = {Anonymous},
   booktitle = {Submitted to the International Conference on Learning Representations (ICLR)},
   year      = {2027},
